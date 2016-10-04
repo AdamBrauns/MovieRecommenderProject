@@ -129,19 +129,19 @@ public class Driver {
                 String rtID = array[6];
                 String rtAllCriticsRating = array[7];
                 String rtAllCriticsNumReviews = array[8];
-                String rtAllCriticsNumFresh = array[1];
-                String rtAllCriticsNumRotten = array[2];
-                String rtAllcriticsScore = array[1];
-                String rtTopCriticsRating = array[2];
-                String rtTopCriticsNumReviews = array[1];
-                String rtTopCriticsNumFresh = array[2];
-                String rtTopCriticsNumRotten = array[1];
-                String rtTopCriticsScore = array[2];
-                String rtAudienceRating = array[1];
-                String rtAudienceNumRatings = array[2];
-                String rtAudienceScore = array[1];
-                String rtPictureURL = array[2];
-                //int rating = Integer.parseInt(array[3]);
+                String rtAllCriticsNumFresh = array[9];
+                String rtAllCriticsNumRotten = array[10];
+                String rtAllcriticsScore = array[11];
+                String rtTopCriticsRating = array[12];
+                String rtTopCriticsNumReviews = array[13];
+                String rtTopCriticsNumFresh = array[14];
+                String rtTopCriticsNumRotten = array[15];
+                String rtTopCriticsScore = array[16];
+                String rtAudienceRating = array[17];
+                String rtAudienceNumRatings = array[18];
+                String rtAudienceScore = array[19];
+                String rtPictureURL = array[20];
+                //int rating = Integer.parseInt(array[3]); //Might have to change variables to ints later on
                 writer.println(id + ","+title+","+imdbID+","+spanishTitle+","+imdbPictureURL+","+
                                 year+","+rtID+","+rtAllCriticsRating+","+rtAllCriticsNumReviews+","+
                                 rtAllCriticsNumFresh+","+rtAllCriticsNumRotten+","+rtAllcriticsScore+","+
