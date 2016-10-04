@@ -10,11 +10,13 @@ import java.io.PrintWriter;
 public class Driver {
 
     public static void main(String args[]){
-        actors();
-        countries();
-        directors();
-        genres();
-        movies();
+        //actors();
+        //countries();
+        //directors();
+        //genres();
+        //movies();
+        //movie_tags();
+        tags();
     }
 
     public static void actors(){
@@ -104,6 +106,54 @@ public class Driver {
                     String movieID = array[0];
                     String genre = array[1];
                     writer.println(movieID + "," + genre);
+                }
+            }
+            writer.close();
+        }catch(FileNotFoundException e){
+            System.out.println("Something went wrong!");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void movie_tags(){
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/movie_tags.txt");
+        try {
+            Scanner s = new Scanner(file);
+            PrintWriter writer = new PrintWriter("src/movie_tags_comma.csv", "UTF-8");
+            boolean skip = true;
+            while(s.hasNextLine()){
+                String array[] = s.nextLine().split("\\t");
+                if(skip){
+                    skip = false;
+                }else{
+                    String movieID = array[0];
+                    String tagID = array[1];
+                    String tagWeight = array[2];
+                    writer.println(movieID + "," + tagID + ","+tagWeight);
+                }
+            }
+            writer.close();
+        }catch(FileNotFoundException e){
+            System.out.println("Something went wrong!");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void tags(){
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/tags.txt");
+        try {
+            Scanner s = new Scanner(file);
+            PrintWriter writer = new PrintWriter("src/tags_comma.csv", "UTF-8");
+            boolean skip = true;
+            while(s.hasNextLine()){
+                String array[] = s.nextLine().split("\\t");
+                if(skip){
+                    skip = false;
+                }else{
+                    String movieID = array[0];
+                    String tagID = array[1];
+                    System.out.println(movieID+" "+tagID);
+                    writer.println(movieID + "," + tagID);
                 }
             }
             writer.close();
