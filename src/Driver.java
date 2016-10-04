@@ -16,7 +16,8 @@ public class Driver {
         //genres();
         //movies();
         //movie_tags();
-        tags();
+        //tags();
+        user_rated_movies();
     }
 
     public static void actors(){
@@ -139,30 +140,6 @@ public class Driver {
             e.printStackTrace();
         }
     }
-    public static void tags(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/tags.txt");
-        try {
-            Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/tags_comma.csv", "UTF-8");
-            boolean skip = true;
-            while(s.hasNextLine()){
-                String array[] = s.nextLine().split("\\t");
-                if(skip){
-                    skip = false;
-                }else{
-                    String movieID = array[0];
-                    String tagID = array[1];
-                    System.out.println(movieID+" "+tagID);
-                    writer.println(movieID + "," + tagID);
-                }
-            }
-            writer.close();
-        }catch(FileNotFoundException e){
-            System.out.println("Something went wrong!");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
     public static void movies(){
         File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/movie2.txt");
         try {
@@ -207,6 +184,55 @@ public class Driver {
             e.printStackTrace();
         }
     }
-
+    public static void tags(){
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/tags.txt");
+        try {
+            Scanner s = new Scanner(file);
+            PrintWriter writer = new PrintWriter("src/tags_comma.csv", "UTF-8");
+            boolean skip = true;
+            while(s.hasNextLine()){
+                String array[] = s.nextLine().split("\\t");
+                if(skip){
+                    skip = false;
+                }else{
+                    String movieID = array[0];
+                    String tagID = array[1];
+                    writer.println(movieID + "," + tagID);
+                }
+            }
+            writer.close();
+        }catch(FileNotFoundException e){
+            System.out.println("Something went wrong!");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void user_rated_movies(){
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/user_ratedmovies.txt");
+        try {
+            Scanner s = new Scanner(file);
+            PrintWriter writer = new PrintWriter("src/user_ratedmovies_comma.csv", "UTF-8");
+            while(s.hasNextLine()){
+                String array[] = s.nextLine().split("\\t");
+                String userID = array[0];
+                String movieID = array[1];
+                String rating = array[2];
+                String date_day = array[3];
+                String date_month = array[4];
+                String date_year = array[5];
+                String date_hour = array[6];
+                String date_minute = array[7];
+                String date_second = array[8];
+                //int rating = Integer.parseInt(array[3]); //Might have to change variables to ints later on
+                writer.println(userID + ","+movieID+","+rating+","+date_day+","+date_month+","+
+                        date_year+","+date_hour+","+date_minute+","+date_second);
+            }
+            writer.close();
+        }catch(FileNotFoundException e){
+            System.out.println("Something went wrong!");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
