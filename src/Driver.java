@@ -17,7 +17,10 @@ public class Driver {
         //movies();
         //movie_tags();
         //tags();
-        user_rated_movies();
+        //user_rated_movies();
+        //user_ratedmovies_timestamps();
+        //user_taggedmovies();
+        user_taggedmovies_timestamps();
     }
 
     public static void actors(){
@@ -226,6 +229,88 @@ public class Driver {
                 //int rating = Integer.parseInt(array[3]); //Might have to change variables to ints later on
                 writer.println(userID + ","+movieID+","+rating+","+date_day+","+date_month+","+
                         date_year+","+date_hour+","+date_minute+","+date_second);
+            }
+            writer.close();
+        }catch(FileNotFoundException e){
+            System.out.println("Something went wrong!");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void user_ratedmovies_timestamps(){
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/user_ratedmovies-timestamps.txt");
+        try {
+            Scanner s = new Scanner(file);
+            PrintWriter writer = new PrintWriter("src/user_ratedmovies-timestamps_comma.csv", "UTF-8");
+            boolean skip = true;
+            while(s.hasNextLine()){
+                String array[] = s.nextLine().split("\\t");
+                if(skip){
+                    skip = false;
+                }else{
+                    String userID = array[0];
+                    String movieID = array[1];
+                    String rating = array[2];
+                    String timestamp = array[3];
+                    writer.println(userID + "," + movieID + ","+rating+","+timestamp);
+                }
+            }
+            writer.close();
+        }catch(FileNotFoundException e){
+            System.out.println("Something went wrong!");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void user_taggedmovies(){
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/user_taggedmovies.txt");
+        try {
+            Scanner s = new Scanner(file);
+            PrintWriter writer = new PrintWriter("src/user_taggedmovies_comma.csv", "UTF-8");
+            boolean skip = true;
+            while(s.hasNextLine()){
+                String array[] = s.nextLine().split("\\t");
+                if(skip){
+                    skip = false;
+                }else{
+                    String userID = array[0];
+                    String movieID = array[1];
+                    String tagID = array[2];
+                    String date_day = array[3];
+                    String date_month = array[4];
+                    String date_year = array[5];
+                    String date_hour = array[6];
+                    String date_minute = array[7];
+                    String date_second = array[8];
+                    //int rating = Integer.parseInt(array[3]); //Might have to change variables to ints later on
+                    writer.println(userID + ","+movieID+","+tagID+","+date_day+","+date_month+","+
+                            date_year+","+date_hour+","+date_minute+","+date_second);
+                }
+            }
+            writer.close();
+        }catch(FileNotFoundException e){
+            System.out.println("Something went wrong!");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void user_taggedmovies_timestamps(){
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/user_taggedmovies-timestamps.txt");
+        try {
+            Scanner s = new Scanner(file);
+            PrintWriter writer = new PrintWriter("src/user_taggedmovies-timestamps_comma.csv", "UTF-8");
+            boolean skip = true;
+            while(s.hasNextLine()){
+                String array[] = s.nextLine().split("\\t");
+                if(skip){
+                    skip = false;
+                }else{
+                    String userID = array[0];
+                    String movieID = array[1];
+                    String tagID = array[2];
+                    String timestamp = array[3];
+                    writer.println(userID + "," + movieID + ","+tagID+","+timestamp);
+                }
             }
             writer.close();
         }catch(FileNotFoundException e){
