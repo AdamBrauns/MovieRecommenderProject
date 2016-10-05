@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/src/movie_directors.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/tags.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Data/movie_directors.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Data/tags.txt" charset="UTF-8" />
   </component>
 </project>

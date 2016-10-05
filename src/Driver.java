@@ -10,24 +10,24 @@ import java.io.PrintWriter;
 public class Driver {
 
     public static void main(String args[]){
-        //actors();
-        //countries();
-        //directors();
-        //genres();
-        //movies();
-        //movie_tags();
-        //tags();
-        //user_rated_movies();
-        //user_ratedmovies_timestamps();
-        //user_taggedmovies();
+        actors();
+        countries();
+        directors();
+        genres();
+        movies();
+        movie_tags();
+        tags();
+        user_rated_movies();
+        user_ratedmovies_timestamps();
+        user_taggedmovies();
         user_taggedmovies_timestamps();
     }
 
     public static void actors(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/movie_actors.txt");
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/movie_actors.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/movie_actors_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/movie_actors_comma.csv", "UTF-8");
             boolean skip = true;
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
@@ -50,10 +50,10 @@ public class Driver {
     }
 
     public static void countries(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/movie_countries.txt");
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/movie_countries.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/movie_countries_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/movie_countries_comma.csv", "UTF-8");
             boolean skip = true;
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
@@ -73,10 +73,10 @@ public class Driver {
         }
     }
     public static void directors(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/movie_directors.txt");
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/movie_directors.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/movie_directors_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/movie_directors_comma.csv", "UTF-8");
             boolean skip = true;
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
@@ -97,10 +97,10 @@ public class Driver {
         }
     }
     public static void genres(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/movie_genres.txt");
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/movie_genres.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/movie_genres_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/movie_genres_comma.csv", "UTF-8");
             boolean skip = true;
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
@@ -120,10 +120,10 @@ public class Driver {
         }
     }
     public static void movie_tags(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/movie_tags.txt");
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/movie_tags.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/movie_tags_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/movie_tags_comma.csv", "UTF-8");
             boolean skip = true;
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
@@ -144,10 +144,10 @@ public class Driver {
         }
     }
     public static void movies(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/movie2.txt");
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/movie2.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/movies_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/movies_comma.csv", "UTF-8");
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
                 String id = array[0];
@@ -188,10 +188,10 @@ public class Driver {
         }
     }
     public static void tags(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/tags.txt");
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/tags.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/tags_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/tags_comma.csv", "UTF-8");
             boolean skip = true;
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
@@ -211,10 +211,10 @@ public class Driver {
         }
     }
     public static void user_rated_movies(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/user_ratedmovies.txt");
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/user_ratedmovies.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/user_ratedmovies_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/user_ratedmovies_comma.csv", "UTF-8");
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
                 String userID = array[0];
@@ -238,10 +238,10 @@ public class Driver {
         }
     }
     public static void user_ratedmovies_timestamps(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/user_ratedmovies-timestamps.txt");
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/user_ratedmovies-timestamps.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/user_ratedmovies-timestamps_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/user_ratedmovies-timestamps_comma.csv", "UTF-8");
             boolean skip = true;
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
@@ -263,10 +263,10 @@ public class Driver {
         }
     }
     public static void user_taggedmovies(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/user_taggedmovies.txt");
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/user_taggedmovies.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/user_taggedmovies_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/user_taggedmovies_comma.csv", "UTF-8");
             boolean skip = true;
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
@@ -295,10 +295,10 @@ public class Driver {
         }
     }
     public static void user_taggedmovies_timestamps(){
-        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/user_taggedmovies-timestamps.txt");
+        File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/user_taggedmovies-timestamps.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/user_taggedmovies-timestamps_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/user_taggedmovies-timestamps_comma.csv", "UTF-8");
             boolean skip = true;
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
