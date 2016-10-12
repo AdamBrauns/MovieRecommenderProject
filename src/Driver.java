@@ -147,7 +147,7 @@ public class Driver {
         File file = new File("/Users/AdamBrauns/IdeaProjects/MovieRecommender/src/data/movie2.txt");
         try {
             Scanner s = new Scanner(file);
-            PrintWriter writer = new PrintWriter("src/data/movies_comma.csv", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/data/movies_comma.txt", "UTF-8");
             while(s.hasNextLine()){
                 String array[] = s.nextLine().split("\\t");
                 String id = array[0];
@@ -171,7 +171,6 @@ public class Driver {
                 String rtAudienceNumRatings = array[18];
                 String rtAudienceScore = array[19];
                 String rtPictureURL = array[20];
-                //int rating = Integer.parseInt(array[3]); //Might have to change variables to ints later on
                 writer.println(id + ","+title+","+imdbID+","+spanishTitle+","+imdbPictureURL+","+
                                 year+","+rtID+","+rtAllCriticsRating+","+rtAllCriticsNumReviews+","+
                                 rtAllCriticsNumFresh+","+rtAllCriticsNumRotten+","+rtAllcriticsScore+","+
