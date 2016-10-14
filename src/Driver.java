@@ -171,12 +171,12 @@ public class Driver {
                 String rtAudienceNumRatings = array[18];
                 String rtAudienceScore = array[19];
                 String rtPictureURL = array[20];
-                writer.println(id + ","+title+","+imdbID+","+spanishTitle+","+imdbPictureURL+","+
-                                year+","+rtID+","+rtAllCriticsRating+","+rtAllCriticsNumReviews+","+
-                                rtAllCriticsNumFresh+","+rtAllCriticsNumRotten+","+rtAllcriticsScore+","+
-                                rtTopCriticsRating+","+rtTopCriticsNumReviews+","+rtTopCriticsNumFresh+","+
-                                rtTopCriticsNumRotten+","+rtTopCriticsScore+","+rtAudienceRating+","+
-                                rtAudienceNumRatings+","+rtAudienceScore+","+rtPictureURL);
+                writer.println(id + "\t"+title+"\t"+imdbID+"\t"+spanishTitle+"\t"+imdbPictureURL+"\t"+
+                                year+"\t"+rtID+"\t"+rtAllCriticsRating+"\t"+rtAllCriticsNumReviews+"\t"+
+                                rtAllCriticsNumFresh+"\t"+rtAllCriticsNumRotten+"\t"+rtAllcriticsScore+"\t"+
+                                rtTopCriticsRating+"\t"+rtTopCriticsNumReviews+"\t"+rtTopCriticsNumFresh+"\t"+
+                                rtTopCriticsNumRotten+"\t"+rtTopCriticsScore+"\t"+rtAudienceRating+"\t"+
+                                rtAudienceNumRatings+"\t"+rtAudienceScore+"\t"+rtPictureURL);
 
             }
             writer.close();

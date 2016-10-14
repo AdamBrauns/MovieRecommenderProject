@@ -21,7 +21,26 @@ while($row=mysql_fetch_array($result)){
 			echo "</ul>";
 }
 
-//movieActors();
+//movieActors(); //working
+movies();
+
+Function movies(){
+	@ $fp = fopen("Data/movies_comma.txt", "r");
+	if(!$fp){
+        echo "Could not open the file!\n";
+        exit();
+	}
+	while (($data = fgets($fp, 500)) !== FALSE) {
+    	//echo "<p>{$data[0]}</p>";
+		$ID = $data;
+		$array = explode("\t", $data);
+		echo "<p>line: ".$array[0]."</p>";
+		//$sql = "INSERT INTO test_table2 (movieID, actorID, actorName, ranking) VALUES ('".$movieID."', '".$actorID."', '".$actorName."', '".$ranking."')";
+		//$sql = "INSERT INTO test_table2 (movieID, actorID, actorName, ranking) VALUES ('1', '1', '1', '1')";
+		//mysql_query($sql);
+	}
+	//echo "<p style='color:green;'>Movie actor table populated</p>";
+}
 
 Function movieActors(){ //working 
 	@ $fp = fopen("Data/movie_actors_comma.csv", "r");
@@ -55,41 +74,11 @@ Function movieCountries(){
 		$movieID = $data[0];
 		$country = $data[1];
 		$sql = "INSERT INTO test_table2 (movieID, actorID, actorName, ranking) VALUES ('".$movieID."', '".$country."')";
-		//$sql = "INSERT INTO test_table2 (movieID, actorID, actorName, ranking) VALUES ('1', '1', '1', '1')";
-		if(mysql_query($sql) === TRUE){
-			$successful = true;
-		}else{
-			$successful = false;
-		}
+		mysql_query($sql);
 	}
-	if($successful){
-		echo "<p>Movie countries table populated</p>";
-	}else{
-		echo "<p style='color:red;'>Movie countrie table <b>unsuccessful</b></p>";
-	}
+	echo "<p style='color:green;'>Movie country table populated</p>";
 }
 
-Function other(){
-	@ $fp = fopen("Data/movie_actors_comma.csv", "r");
-	if(!$fp){
-        echo "Could not open the file!\n";
-        exit();
-	}
-
-	while (($data = fgetcsv($fp, 255, ",")) !== FALSE) {
-    	//echo "<p>{$data[0]}</p>";
-		$movieID = $data[0];
-		$country = $data[1];
-
-		$sql = "INSERT INTO test_table2 (movieID, actorID, actorName, ranking) VALUES ('".$movieID."', '".$country."')";
-		//$sql = "INSERT INTO test_table2 (movieID, actorID, actorName, ranking) VALUES ('1', '1', '1', '1')";
-		if(mysql_query($sql) === TRUE){
-			echo "<p>".$actorName." added successfully</p>";
-		}else{
-			echo "Error adding";
-		}
-	}
-}
 
 
 
