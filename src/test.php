@@ -1,5 +1,7 @@
 <?php
 
+ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+
 $servername = "mysql4.000webhost.com";
 $username = "a4803033_class";
 $password = "Compsci366";
@@ -28,7 +30,7 @@ while($row=mysql_fetch_array($result)){
 //movieGenres(); //working
 //movieTags(); //working
 //tags(); //working
-user_ratedmovies();
+//user_ratedmovies(); //not working 100% times out 
 
 Function movies(){ //working
 	@ $fp = fopen("Data/movies_comma.txt", "r");
@@ -172,6 +174,7 @@ Function tags(){ //working
 	echo "<p style='color:green;'>Tags table populated</p>";
 }
 
+//Times out because the file is too large
 Function user_ratedmovies(){ 
 	@ $fp = fopen("Data/user_ratedmovies_comma.csv", "r");
 	if(!$fp){
@@ -189,10 +192,11 @@ Function user_ratedmovies(){
 		$date_minute = $data[7];
 		$date_second = $data[8];
 
-		echo "<p> ".$UserID."</p>";
-		//$sql = "INSERT INTO user_ratedmovies (UserID, movieID, rating, date_day, date_month, date_year, date_hour, date_minute, date_second) VALUES ('".$UserID."', '".$movieID."', '".$rating."', '".$date_day."', '".$date_month."', '".$date_year."', '".$date_hour."', '".$date_minute."', '".$date_second."')";
+		$count = $count + 1;
+		
+		$sql = "INSERT INTO user_ratedmovies (UserID, movieID, rating, date_day, date_month, date_year, date_hour, date_minute, date_second) VALUES ('".$UserID."', '".$movieID."', '".$rating."', '".$date_day."', '".$date_month."', '".$date_year."', '".$date_hour."', '".$date_minute."', '".$date_second."')";
 		//$sql = "INSERT INTO test_table2 (movieID, actorID, actorName, ranking) VALUES ('1', '1', '1', '1')";
-		//mysql_query($sql);
+		mysql_query($sql);
 	}
 	echo "<p style='color:green;'>User rated movies table populated</p>";
 }

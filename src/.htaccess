@@ -1,0 +1,6 @@
+# Do not remove this line, otherwise mod_rewrite rules will stop working
+RewriteBase /
+
+<IfModule mod_php5.c>
+php_value max_execution_time 300
+</IfModule>
