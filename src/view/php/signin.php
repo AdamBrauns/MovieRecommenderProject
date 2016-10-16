@@ -1,3 +1,38 @@
+<?php
+
+$servername = "mysql4.000webhost.com";
+$username = "a4803033_class";
+$password = "Compsci366";
+
+$db=mysql_connect  ($servername, $username,  $password) or die ('I cannot connect to the database  because: ' . mysql_error());
+
+$mydb=mysql_select_db("a4803033_class");
+
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+$sql = "SELECT password FROM users WHERE username='".$username."'";
+
+$result = mysql_query($sql);
+
+$row=mysql_fetch_array($result);
+
+$returnedpassword  = $row['password'];
+
+//echo "<p>result: ".$returnedpassword."</p>";
+
+if(strlen($password) == 0){
+	displayHTML();
+}elseif ($password == $returnedpassword){
+	//echo "<p>You would be logged in</p>";
+	header("Location: ../html/rater.html");
+}else{
+	displayHTML();
+}
+
+Function displayHTML(){
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,24 +56,20 @@
 		</div>
 		<div class="login-box animated fadeInUp">
 			<div class="box-header">
-				<h2>Create Account</h2>
+				<h2>Log In</h2>
 			</div>
-			<form method='post' action='../php/createAccount.php'/>
-			<label for="username">Username</label><br>
-			<label for="username">(at least 5 characters)</label>
+			<form method='post' action='signin.php'/>
+			<label style='color:red;'>Username or password incorrect!</label>
+			<label for="username">Username</label>
 			<br/>
 			<input type="text" id="username" name="username">
 			<br/>
 			<label for="password">Password</label>
 			<br/>
-			<input type="text" id="password" name="password">
+			<input type="password" id="password" name="password">
 			<br/>
-			<label for="c_password">Confirm Password</label>
-			<br/>
-			<input type="c_password" id="c_password" name="c_password">
-			<br/>
-			<button type="submit">Create Account</button>
-			<p>Already have an account? <a href="../../index.html"><u>Sign in!</u></a></p>
+			<button type="submit">Sign In</button>
+			<p>Don't have an account? <a href="view/html/account.html"><u>Create one!</u></a></p>
 			</form>
 		</div>
 	</div>
@@ -60,12 +91,12 @@
 	$('#password').blur(function() {
 		$('label[for="password"]').removeClass('selected');
 	});
-	$('#c_password').focus(function() {
-		$('label[for="c_password"]').addClass('selected');
-	});
-	$('#c_password').blur(function() {
-		$('label[for="c_password"]').removeClass('selected');
-	});
 </script>
 
 </html>
+
+
+<?php
+}
+
+?>
