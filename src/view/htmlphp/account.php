@@ -23,7 +23,7 @@
 			<div class="box-header">
 				<h2>Create Account</h2>
 			</div>
-			<form method='post' action='../php/createAccount.php'/>
+			<form method='post' action='createAccount.php'/>
 			<label for="username">Username</label><br>
 			<label for="username">(at least 5 characters)</label>
 			<br/>

@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $servername = "mysql4.000webhost.com";
 $username = "a4803033_class";
 $password = "Compsci366";
@@ -25,7 +27,9 @@ if(strlen($password) == 0){
 	displayHTML();
 }elseif ($password == $returnedpassword){
 	//echo "<p>You would be logged in</p>";
-	header("Location: ../html/rater.html");
+	$_SESSION['currentUser'] = $username;
+	$_SESSION['active'] = true;
+	header("Location: rater.php");
 }else{
 	displayHTML();
 }

@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+//if(!isset($_SESSION['currentUser'])){
+if($_SESSION['active'] == false){
+  header("Location: ../../index.html");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,11 +28,11 @@
   <div class="main">
     <header>
       <div class="wrapper">
-        <h1><a href="rater.html" id="logo"></a><span id="slogan">Movie Recommender</span></h1>
+        <h1><a href="rater.php" id="logo"></a><span id="slogan">Movie Recommender</span></h1>
         <div class="right">
           <nav>
             <ul id="top_nav">
-              <li style="color: white;">Account name</li><li><a href="index.html">Logoff</a></li>
+              <li style="color: white;"><?php echo $_SESSION['currentUser'];?></li><li><a href="logoff.php">Logoff</a></li>
             </ul>
           </nav>
           <nav>
@@ -34,8 +44,8 @@
               <li><a href=""></a></li>
               <li><a href=""></a></li>
               <li><a href=""></a></li>
-              <li><a href="rater.html">Movie Rater</a></li>
-              <li id="menu_active"><a href="profile.html">Profile</a></li>
+              <li><a href="rater.php">Movie Rater</a></li>
+              <li id="menu_active"><a href="profile.php">Profile</a></li>
             </ul>
           </nav>
         </div>
@@ -49,8 +59,8 @@
       <div class="pad_1">
         <h2>Your Profile</h2>
         <p><strong>From your prifile</strong> you can view and edit your liked/disliked movies. You can also view your account and change your password.</p>
-        <p><a href="">Account information</a></p>
-        <p><a href="">Liked Movies</a></p>
+        <p><a href="profile.php">Account information</a></p>
+        <p><a href="profile-liked.php">Liked Movies</a></p>
         <p><a href="">Disliked Movies</a></p>
       </div>
     </article>

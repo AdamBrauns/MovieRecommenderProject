@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+//if(!isset($_SESSION['currentUser'])){
+if($_SESSION['active'] == false){
+  header("Location: ../../index.html");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,11 +28,11 @@
   <div class="main">
     <header>
       <div class="wrapper">
-        <h1><a href="rater.html" id="logo"></a><span id="slogan">Movie Recommender</span></h1>
+        <h1><a href="rater.php" id="logo"></a><span id="slogan">Movie Recommender</span></h1>
         <div class="right">
           <nav>
             <ul id="top_nav">
-              <li style="color: white;">Account name</li><li><a href="index.html">Logoff</a></li>
+              <li style="color: white;"><?php echo $_SESSION['currentUser']?></li><li><a href="logoff.php">Logoff</a></li>
             </ul>
           </nav>
           <nav>
@@ -34,8 +44,8 @@
               <li><a href=""></a></li>
               <li><a href=""></a></li>
               <li><a href=""></a></li>
-              <li id="menu_active"><a href="rater.html">Movie Rater</a></li>
-              <li><a href="profile.html">Profile</a></li>
+              <li id="menu_active"><a href="rater.php">Movie Rater</a></li>
+              <li><a href="profile.php">Profile</a></li>
             </ul>
           </nav>
         </div>
@@ -69,44 +79,61 @@
         <option value="war">War</option>
         <option value="western">Western</option>
       </select>
-  <div>  
-  <p class="movietitle">The Dark Knight</p>
-  <p style="text-align:center;"><a href="rater.html">Skip Movie</a></p>
-  <div class="movie">
-    <a href=""><img src="../images/Thumbs_Up.png" height="200" width="200" class="thumb"></a>
-    <img src="../images/movie_poster.jpg" height="200" width="150" class="moviepic">
-    <a href=""><img src="../images/Thumbs_Down.png" height="200" width="200" class="thumb"></a>
-  </div>
-<div>  
-<div class="footer1">
-  <div class="main">
-    <footer>
-      <p style="color:white;">Movie Information</p>
-      <div class="footerlink">
-        <!--
-        <p class="lf">Copyright &copy; 2016 <a href="index.html">Midwest Insurance</a> - All Rights Reserved</p>
-        <p class="rf">&nbsp; <a href="contactus.html">Contact Us</a> &nbsp; | &nbsp; <a href="termsofuse.html">Terms of Use</a> &nbsp; | &nbsp; <a href="privacystatement.html">Privacy Statement</a> &nbsp; | &nbsp; <a href="faq.html">FAQ</a> &nbsp; </p>
-        <div style="clear:both;"></div>
-      -->
+  <div>
+<?php
 
-        <table style="color:white;">
-          <tr>
-            <th width="100">Title</th>
-            <th width="100">Director</th> 
-            <th width="100">Actors</th>
-            <th width="100">Ratings</th>
-          </tr>
-          <tr>
-            <td>The Dark Knight</td>
-            <td>Steven Speilberg</td> 
-            <td>Batman<br> robin</td>
-            <td>9.8</td>
+$servername = "mysql4.000webhost.com";
+$username = "a4803033_class";
+$password = "Compsci366";
+
+$db=mysql_connect  ($servername, $username,  $password) or die ('I cannot connect to the database  because: ' . mysql_error());
+
+$mydb=mysql_select_db("a4803033_class");
+
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+$sql = "SELECT * FROM movies ORDER BY RAND() LIMIT 1";
+
+$result = mysql_query($sql);
+
+$row=mysql_fetch_array($result);
+
+$movie_imageurl = $row['rtPictureURL'];
+$movie_title = $row['title'];
+$movie_id = $row['ID'];
+//echo "<h2>TEST".$imageurl."</h2>";
+
+  echo "<p class='movietitle'>".$movie_title."</p>";
+  echo "<p style='text-align:center;''><a href='rater.php'>Skip Movie</a></p>";
+  echo "<div class='movie'>";
+    $_SESSION['movie_id'] = $movie_id;
+    echo "<a href='upvote.php'><img src='../images/Thumbs_Up.png' height='200' width='200' class='thumb'></a>";
+    //echo "<img src='../images/movie_poster.jpg' height='200' width='150' class='moviepic'>";
+    echo "<img src='".$movie_imageurl."' height='200' width='150' class='moviepic'>";
+    echo "<a href='downvote.php'><img src='../images/Thumbs_Down.png' height='200' width='200' class='thumb'></a>";
+  echo "</div>";
+echo "<div>";
+echo "<div class='footer1'>";
+  echo "<div class='main'>";
+    echo "<footer>";
+      echo "<p style='color:white;''>Movie Information</p>";
+      echo "<div class='footerlink'>";
+        echo "<table style='color:white;''>";
+          echo "<tr>";
+          echo "<th width='100'>Title</th>";
+          echo "<th width='100'>Director</th>"; 
+          echo "<th width='100'>Actors</th>";
+          echo "<th width='100'>Ratings</th>";
+          echo "</tr>";
+          echo "<tr>";
+            echo "<td>".$movie_title."</td>";
+            echo "<td>Steven Speilberg</td>"; 
+            echo "<td>Batman<br> robin</td>";
+            echo "<td>9.8</td>";
+?>            
           </tr>
         </table>
-        
-        
-
-
       </div>
     </footer>
   </div>
