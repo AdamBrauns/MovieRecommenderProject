@@ -71,7 +71,7 @@ if($_SESSION['active'] == false){
       session_start();
       $currentUser = $_SESSION['currentUser'];
 
-      echo "<h2>Upvoted Movies</h2>";
+      echo "<h2>Downvoted Movies</h2>";
 
       $servername = "mysql4.000webhost.com";
       $username = "a4803033_class";
@@ -81,12 +81,12 @@ if($_SESSION['active'] == false){
 
       $mydb=mysql_select_db("a4803033_class");
 
-      $sql = "SELECT movieID FROM user_upvotes WHERE username='".$currentUser."'";
+      $sql = "SELECT movieID FROM user_downvotes WHERE username='".$currentUser."'";
 
       $result = mysql_query($sql);
 
       if (mysql_num_rows($result) == 0){
-        echo "<h2> You did not like any movies yet</h2>";
+        echo "<h2> You did not dislike any movies yet</h2>";
       }else{
         echo "<table>";
         echo "<tr>";
@@ -110,7 +110,7 @@ if($_SESSION['active'] == false){
           //echo "<td><img src='../images/noposter.png' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'>";
           echo "<td>".$row2['rtAudienceScore']."</td>";
           echo "<td><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td></tr>";
-          $_SESSION['prevpage'] = "liked";
+          $_SESSION['prevpage'] = "disliked";
         }
         echo "</form>";
       }

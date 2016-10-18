@@ -61,7 +61,7 @@ if($_SESSION['active'] == false){
         <p><strong>From your prifile</strong> you can view and edit your liked/disliked movies. You can also view your account and change your password.</p>
         <p><a href="profile.php">Account information</a></p>
         <p><a href="profile-liked.php">Liked Movies</a></p>
-        <p><a href="">Disliked Movies</a></p>
+        <p><a href="profile-disliked.php">Disliked Movies</a></p>
       </div>
     </article>
     <article class="col2 pad_left1">

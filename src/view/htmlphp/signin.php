@@ -73,7 +73,7 @@ Function displayHTML(){
 			<input type="password" id="password" name="password">
 			<br/>
 			<button type="submit">Sign In</button>
-			<p>Don't have an account? <a href="view/html/account.html"><u>Create one!</u></a></p>
+			<p>Don't have an account? <a href="account.php"><u>Create one!</u></a></p>
 			</form>
 		</div>
 	</div>
