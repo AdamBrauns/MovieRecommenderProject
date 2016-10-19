@@ -104,12 +104,12 @@ if($_SESSION['active'] == false){
 
           $row2 = mysql_fetch_array($result2);
 
-          echo "<tr><td>".$row2['title']."</td>";
+          echo "<tr><td style='text-align: center'>".$row2['title']."</td>";
 
-          echo "<td><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time' onerror='this.onerror=null;this.src='../images/noposter.png'';>";
+          echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time' onerror='this.onerror=null;this.src='../images/noposter.png'';>";
           //echo "<td><img src='../images/noposter.png' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'>";
-          echo "<td>".$row2['rtAudienceScore']."</td>";
-          echo "<td><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td></tr>";
+          echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
+          echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td></tr>";
           $_SESSION['prevpage'] = "disliked";
         }
         echo "</form>";

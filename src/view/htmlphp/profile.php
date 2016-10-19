@@ -65,27 +65,33 @@ if($_SESSION['active'] == false){
       </div>
     </article>
     <article class="col2 pad_left1">
-      <h2>Account Information</h2>
-      <h2>Username: </h2>
+      <?php
+      if($_GET['error']){
+        echo "<h2 style='color:red;'>Error Changing Password! Try Again!</h2>";
+      }
+      echo "<h2>Account Information</h2>";
+      echo "<h2>Username: </h2>";
+      echo "<h3>".$_SESSION['currentUser']."</h3>";
+      ?>
       <h2>Change Password:</h2>
-      <form id="form_1" action="#" method="post">
+      <form action="profileScripts.php" method="POST">
           <div class="wrapper"> Old Password:
             <div class="bg">
-              <input type="text" class="input input1" value="Enter Old Password" onBlur="if(this.value=='') this.value='Enter Full Name'" onFocus="if(this.value =='Enter Full Name' ) this.value=''">
+              <input type="text" class="input input1" name="oldpass">
             </div>
           </div>
           <div class="wrapper"> New Password:
             <div class="bg">
-              <input type="text" class="input input1" value="Enter New Password" onBlur="if(this.value=='') this.value='Enter Email Address'" onFocus="if(this.value =='Enter Email Address' ) this.value=''">
+              <input type="text" class="input input1" name="newpass">
             </div>
           </div>
           <div class="wrapper"> Confirm Password:
             <div class="bg">
-              <input type="text" class="input input1" value="Validate New Password" onBlur="if(this.value=='') this.value='Enter Street Address, City'" onFocus="if(this.value =='Enter Street Address, City' ) this.value=''">
+              <input type="text" class="input input1" name="c_pass">
             </div>
           </div>
             <br>
-            <a href="#" class="button2">Go!</a> </div>
+            <input type='submit' name='clicked[password]' value='Change Password' href='rater.php'>
         </form>
     </article>
   </section>

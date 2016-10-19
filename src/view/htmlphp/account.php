@@ -31,11 +31,11 @@
 			<br/>
 			<label for="password">Password</label>
 			<br/>
-			<input type="text" id="password" name="password">
+			<input type="password" id="password" name="password">
 			<br/>
-			<label for="c_password">Confirm Password</label>
+			<label for="password">Confirm Password</label>
 			<br/>
-			<input type="c_password" id="c_password" name="c_password">
+			<input type="password" id="c_password" name="c_password">
 			<br/>
 			<button type="submit">Create Account</button>
 			<p>Already have an account? <a href="../../index.html"><u>Sign in!</u></a></p>

@@ -64,12 +64,34 @@
       						echo "<label>Congrats! Your account was created successfully!</label><br>";
       						echo "<label><a href='../../index.html'>Sign in!</a></label>";
   						}else{
-  							echo "<div class='box-header'>";
-							echo "<h2>Error Creating Account!</h2>";
-							echo "</div>";
-      						echo "<label><b>Make sure:</b></label><br>";
-      						echo "<label>Username is over 5 characters</label><br>";
-      						echo "<label>Passwords match</label><br>";
+  							//echo "<div class='box-header'>";
+							//echo "<h2>Error Creating Account!</h2>";
+							//echo "</div>";
+      						//echo "<label><b>Make sure:</b></label><br>";
+      						//echo "<label>Username is over 5 characters</label><br>";
+      						//echo "<label>Passwords match</label><br>";
+      						?>
+  							<div class="box-header">
+							<h2>Create Account</h2>
+							</div>
+							<form method='post' action='createAccount.php'/>
+							<label style='color:red;'>Error Creating Account! Try Again!</label><br>
+							<label for="username">Username</label><br>
+							<label for="username">(at least 5 characters)</label>
+							<br/>
+							<input type="text" id="username" name="username">
+							<br/>
+							<label for="password">Password</label>
+							<br/>
+							<input type="password" id="password" name="password">
+							<br/>
+							<label for="password">Confirm Password</label>
+							<br/>
+							<input type="password" id="c_password" name="c_password">
+							<br/>
+							<button type="submit">Create Account</button>
+							<p>Already have an account? <a href="../../index.html"><u>Sign in!</u></a></p>
+							<?php
   						}	
   					}
 
