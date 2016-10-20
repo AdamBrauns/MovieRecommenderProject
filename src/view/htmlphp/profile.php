@@ -66,8 +66,10 @@ if($_SESSION['active'] == false){
     </article>
     <article class="col2 pad_left1">
       <?php
-      if($_GET['error']){
+      if($_GET['error'] == "true"){
         echo "<h2 style='color:red;'>Error Changing Password! Try Again!</h2>";
+      }elseif($_GET['error'] == "false"){
+        echo "<h2 style='color:green;'>Password successfully changed!</h2>";
       }
       echo "<h2>Account Information</h2>";
       echo "<h2>Username: </h2>";
@@ -77,21 +79,29 @@ if($_SESSION['active'] == false){
       <form action="profileScripts.php" method="POST">
           <div class="wrapper"> Old Password:
             <div class="bg">
-              <input type="text" class="input input1" name="oldpass">
+              <input type="password" class="input input1" name="oldpass">
             </div>
           </div>
           <div class="wrapper"> New Password:
             <div class="bg">
-              <input type="text" class="input input1" name="newpass">
+              <input type="password" class="input input1" name="newpass">
             </div>
           </div>
           <div class="wrapper"> Confirm Password:
             <div class="bg">
-              <input type="text" class="input input1" name="c_pass">
+              <input type="password" class="input input1" name="c_pass">
             </div>
           </div>
             <br>
-            <input type='submit' name='clicked[password]' value='Change Password' href='rater.php'>
+            <input type='submit' name='clicked[password]' value='Change Password'>
+        </form>
+        <form action="profileScripts.php" method="POST">
+          <h2>Delete all likes</h2>
+          <input type='submit' name='clicked[rmliked]' value='Remove All Liked'>
+        </form>
+        <form action="profileScripts.php" method="POST">
+          <h2>Delete all dislikes</h2>
+          <input type='submit' name='clicked[rmdisliked]' value='Remove All Disliked'>
         </form>
     </article>
   </section>

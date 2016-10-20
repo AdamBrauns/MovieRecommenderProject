@@ -16,12 +16,13 @@ if(key($_POST['clicked']) == "password"){
 	$newpass = $_POST['newpass'];
 	$c_pass =  $_POST['c_pass'];
 
+	$errors = 0;
 	if($newpass != $c_pass){
-		//header("Location: profile.php?error=true");
+		$errors = $errors + 1;
 	}
 
 	if(strlen($oldpass) < 1 or strlen($newpass) < 1 or strlen($c_pass) < 1){
-		//header("Location: profile.php?error=true");
+		$errors = $errors + 1;
 	}
 
 	$sql = "SELECT * FROM users WHERE username='".$_SESSION['currentUser']."';";
@@ -30,12 +31,31 @@ if(key($_POST['clicked']) == "password"){
 	$row=mysql_fetch_array($result);
 
 	if($row['password'] != $oldpass){
-		//header("Location: profile.php?error=true");
-	}else{
+		$errors = $errors + 1;
+	}
+
+	if($errors == 0){
 		$sql = "UPDATE users SET password='".$newpass."' WHERE username='".$_SESSION['currentUser']."';";
 		mysql_query($sql);
-		//header("Location: profile.php");
+		echo "SUCCESS";
+		header("Location: profile.php?error=false");
+	}else{
+		header("Location: profile.php?error=true");
 	}
+}elseif(key($_POST['clicked']) == "rmliked"){
+
+	//echo " you made it";
+	$sql = "DELETE FROM user_upvotes WHERE username='".$_SESSION['currentUser']."';";
+	mysql_query($sql);
+	header("Location: profile.php");
+
+}elseif(key($_POST['clicked']) == "rmdisliked"){
+
+	//echo " you made it";
+	$sql = "DELETE FROM user_downvotes WHERE username='".$_SESSION['currentUser']."';";
+	mysql_query($sql);
+	header("Location: profile.php");
+
 }else{
 
 	$movieID = key($_POST['clicked']);
