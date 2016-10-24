@@ -22,6 +22,8 @@ if($_SESSION['active'] == false){
 <script type="text/javascript" src="../js/Myriad_Pro_italic_600.font.js"></script>
 <script type="text/javascript" src="../js/Myriad_Pro_italic_400.font.js"></script>
 <script type="text/javascript" src="../js/Myriad_Pro_400.font.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body id="page1">
 <div class="body1">
@@ -97,12 +99,26 @@ if($_SESSION['active'] == false){
         </form>
         <form action="profileScripts.php" method="POST">
           <h2>Delete all likes</h2>
-          <input type='submit' name='clicked[rmliked]' value='Remove All Liked'>
+          <input type='button' value='Remove All Liked' id='shownext1'>
+          <input type='submit' name='clicked[rmliked]' style="display:none" id='shownextbutton1' value='Confirm?'>
         </form>
         <form action="profileScripts.php" method="POST">
           <h2>Delete all dislikes</h2>
-          <input type='submit' name='clicked[rmdisliked]' value='Remove All Disliked'>
+          <input type='button' value='Remove All Disliked' id='shownext2'>
+          <input type='submit' name='clicked[rmdisliked]' style="display:none" id='shownextbutton2' value='Confirm?'>
         </form>
+
+        <script type="text/javascript">
+          $(function(){
+            $('#shownext1').click(function(){
+              $('#shownextbutton1').css("display", "inline");
+            });
+            $('#shownext2').click(function(){
+              $('#shownextbutton2').css("display", "inline");
+            }); 
+          });  
+        </script>
+
     </article>
   </section>
 </div>
