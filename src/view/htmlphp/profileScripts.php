@@ -73,7 +73,7 @@ if(key($_POST['clicked']) == "password"){
 
 	mysql_query($sql);
 
-	header("Location: profile-".$_SESSION['prevpage'].".php");
+	header("Location: profileMovies.php?movies=".$_SESSION['prevpage']);
 
 }
 

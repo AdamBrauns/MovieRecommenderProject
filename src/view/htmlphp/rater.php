@@ -53,8 +53,8 @@ if($_SESSION['active'] == false){
     </header>
   </div>
 </div>
-<div class="content" id="middle">
-  <div class="filter">
+<div class="content">
+  <div style="float: left; width: 30%">
     Genre: &nbsp;
       <select>
         <option value="">-Select-</option>
@@ -79,7 +79,9 @@ if($_SESSION['active'] == false){
         <option value="war">War</option>
         <option value="western">Western</option>
       </select>
-  <div>
+      <h2>THIS IS A TEST</h2>
+  </div>    
+  <div style="float: right; width: 70%">
 <?php
 
 $servername = "mysql4.000webhost.com";
@@ -93,7 +95,8 @@ $mydb=mysql_select_db("a4803033_class");
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM movies ORDER BY RAND() LIMIT 1";
+$sql = "SELECT * FROM movies ORDER BY RAND() LIMIT 1"; //Any movie (includes foreign)
+//$sql = "SELECT ID, title, country FROM movies, movie_countries WHERE movies.ID = movie_countries.movieID AND movie_countries.country =  'USA' ORDER BY RAND( )  LIMIT 1";
 
 $result = mysql_query($sql);
 
@@ -102,18 +105,16 @@ $row=mysql_fetch_array($result);
 $movie_imageurl = $row['rtPictureURL'];
 $movie_title = $row['title'];
 $movie_id = $row['ID'];
-//echo "<h2>TEST".$imageurl."</h2>";
 
+  echo "<div style='position: absolute; top: 40%; transform: translateY(-40%)';>";
   echo "<p class='movietitle'>".$movie_title."</p>";
-  echo "<p style='text-align:center;''><a href='rater.php'>Skip Movie</a></p>";
-  echo "<div class='movie'>";
+  echo "<p class='movietitle'><a href='rater.php'>Skip Movie</a></p>";
     $_SESSION['movie_id'] = $movie_id;
     echo "<a href='upvote.php'><img src='../images/Thumbs_Up.png' height='200' width='200' class='thumb'></a>";
-    //echo "<img src='../images/movie_poster.jpg' height='200' width='150' class='moviepic'>";
     echo "<img src='".$movie_imageurl."' height='200' width='150' class='moviepic'>";
     echo "<a href='downvote.php'><img src='../images/Thumbs_Down.png' height='200' width='200' class='thumb'></a>";
   echo "</div>";
-echo "<div>";
+echo "</div>";  
 echo "<div class='footer1'>";
   echo "<div class='main'>";
     echo "<footer>";
@@ -130,7 +131,7 @@ echo "<div class='footer1'>";
             echo "<td>".$movie_title."</td>";
             echo "<td>Steven Speilberg</td>"; 
             echo "<td>Batman<br> robin</td>";
-            echo "<td>9.8</td>";
+          echo "<td>9.8</td>";
 ?>            
           </tr>
         </table>
