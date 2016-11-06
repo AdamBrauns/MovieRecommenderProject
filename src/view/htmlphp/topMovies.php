@@ -42,8 +42,8 @@ if($_SESSION['active'] == false){
               <li><a href=""></a></li>
               <li><a href=""></a></li>
               <li><a href=""></a></li>
-              <li id="menu_active"><a href="rater.php">Movie Rater</a></li>
-              <li><a href="topMovies.php">Top 50</a></li>
+              <li><a href="rater.php">Movie Rater</a></li>
+              <li id="menu_active"><a href="topMovies.php">Top 50</a></li>
               <li><a href="profile.php">Profile</a></li>
             </ul>
           </nav>
@@ -94,49 +94,46 @@ $mydb=mysql_select_db("a4803033_class");
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM movies ORDER BY RAND() LIMIT 1"; //Any movie (includes foreign)
+$sql = "SELECT * FROM  movies ORDER BY  rtAudienceScore DESC LIMIT 50"; //Any movie (includes foreign)
 //$sql = "SELECT ID, title, country FROM movies, movie_countries WHERE movies.ID = movie_countries.movieID AND movie_countries.country =  'USA' ORDER BY RAND( )  LIMIT 1";
 
 $result = mysql_query($sql);
 
-$row=mysql_fetch_array($result);
+//$row=mysql_fetch_array($result);
+//echo $row['title'];
 
-$movie_imageurl = $row['rtPictureURL'];
-$movie_title = $row['title'];
-$movie_id = $row['ID'];
+//if (mysql_num_rows($result) == 0){
+  //echo "<h2> You did not dislike any movies yet</h2>";
+//}else{
+  echo "<table>";
+  echo "<tr>";
+  echo "<th width='150'>Title</th>";
+  echo "<th width='150'>Poster</th>";
+  echo "<th width='150'>Rating</th>";
+  echo "<th width='150'>Delete?</th>";
+  echo "</tr>";
 
-  echo "<div style='position: absolute; top: 40%; transform: translateY(-40%)';>";
-  echo "<p class='movietitle'>".$movie_title."</p>";
-  echo "<p class='movietitle'><a href='rater.php'>Skip Movie</a></p>";
-    $_SESSION['movie_id'] = $movie_id;
-    echo "<a href='upvote.php'><img src='../images/Thumbs_Up.png' height='200' width='200' class='thumb'></a>";
-    echo "<img src='".$movie_imageurl."' height='200' width='150' class='moviepic'>";
-    echo "<a href='downvote.php'><img src='../images/Thumbs_Down.png' height='200' width='200' class='thumb'></a>";
-  echo "</div>";
-echo "</div>";  
-echo "<div class='footer1'>";
-  echo "<div class='main'>";
-    echo "<footer>";
-      echo "<p style='color:white;''>Movie Information</p>";
-      echo "<div class='footerlink'>";
-        echo "<table style='color:white;''>";
-          echo "<tr>";
-          echo "<th width='100'>Title</th>";
-          echo "<th width='100'>Director</th>"; 
-          echo "<th width='100'>Actors</th>";
-          echo "<th width='100'>Ratings</th>";
-          echo "</tr>";
-          echo "<tr>";
-            echo "<td>".$movie_title."</td>";
-            echo "<td>Steven Speilberg</td>"; 
-            echo "<td>Batman<br> robin</td>";
-          echo "<td>9.8</td>";
-?>            
-          </tr>
-        </table>
-      </div>
-    </footer>
-  </div>
+  while($row2=mysql_fetch_array($result)){
+    //echo $row2['title'];
+
+    echo "<tr>";
+    echo "<td style='text-align: center'>".$row2['title']."</td>";
+    echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
+    echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
+    echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td>";
+    echo "</tr>";     
+  }
+  echo "</table>";
+//}  
+       
+  
+  //echo "</div>";
+//echo "</div>";  
+//echo "<div class='footer1'>";
+  //echo "<div class='main'>";
+    //echo "<footer>";
+      //echo "<div class='footerlink'>";
+?>
 </div>
 </body>
 </html>
