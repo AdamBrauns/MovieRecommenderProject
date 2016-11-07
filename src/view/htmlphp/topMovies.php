@@ -54,31 +54,43 @@ if($_SESSION['active'] == false){
 </div>
 <div class="content">
   <div style="float: left; width: 30%">
-    Genre: &nbsp;
-      <select>
+    <h2>Filter Movies</h2>
+    <form method='post' action='filter.php'>
+    <table>
+    <tr><td>Genre:</td>
+      <td>
+      <select id='genre' name='genre'>
         <option value="">-Select-</option>
-        <option value="action">Action</option>
-        <option value="adventure">Adventure</option>
-        <option value="animation">Animation</option>
-        <option value="children">Children</option>
-        <option value="comedy">Comedy</option>
-        <option value="crime">Crime</option>
-        <option value="documentary">Documentary</option>
-        <option value="drama">Drama</option>
-        <option value="fantasy">Fantasy</option>
-        <option value="filmnoir">Film-Noir</option>
-        <option value="horror">Horror</option>
-        <option value="imax">IMAX</option>
-        <option value="musical">Musical</option>
-        <option value="mystery">Mystery</option>
-        <option value="romance">Romance</option>
-        <option value="scifi">Sci-Fi</option>
-        <option value="short">Short</option>
-        <option value="thriller">Thriller</option>
-        <option value="war">War</option>
-        <option value="western">Western</option>
+        <option value="Action">Action</option>
+        <option value="Adventure">Adventure</option>
+        <option value="Animation">Animation</option>
+        <option value="Children">Children</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Crime">Crime</option>
+        <option value="Documentary">Documentary</option>
+        <option value="Drama">Drama</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="Filmnoir">Film-Noir</option>
+        <option value="Horror">Horror</option>
+        <option value="Imax">IMAX</option>
+        <option value="Musical">Musical</option>
+        <option value="Mystery">Mystery</option>
+        <option value="Romance">Romance</option>
+        <option value="Scifi">Sci-Fi</option>
+        <option value="Short">Short</option>
+        <option value="Thriller">Thriller</option>
+        <option value="War">War</option>
+        <option value="Western">Western</option>
       </select>
-      <h2>THIS IS A TEST</h2>
+      </td></tr>
+      <tr><td><label>Year From </label><br><label>(earliest 1903):</label></td>
+      <td><br><input type='text' id='yearFrom' name='yearFrom' placeholder='Year From'/></td><tr>
+      <tr><td><label>Year To </label><br><label>(latest 2011):</label></td>
+      <td><br><input type='text' id='yearTo' name='yearTo' placeholder='Year To'/></td></tr>
+      <tr>
+    </table>
+    <button type='submit'>Go!</button>  
+  </form>
   </div>    
   <div style="float: right; width: 70%">
 <?php
@@ -94,29 +106,33 @@ $mydb=mysql_select_db("a4803033_class");
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM  movies ORDER BY  rtAudienceScore DESC LIMIT 50"; //Any movie (includes foreign)
-//$sql = "SELECT ID, title, country FROM movies, movie_countries WHERE movies.ID = movie_countries.movieID AND movie_countries.country =  'USA' ORDER BY RAND( )  LIMIT 1";
+$sql = "";
+if($_GET['error']==''){
+  //echo "<p>THERE WAS AN ERROR</p>";
+  if($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
+    $sql = "SELECT * FROM  movies ORDER BY rtAudienceScore DESC LIMIT 50";
+  }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
+    //echo "SELECT * FROM movies m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' ORDER BY m.rtAudienceScore DESC LIMIT 50";
+    $sql = "SELECT DISTINCT * FROM movies m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' ORDER BY m.rtAudienceScore DESC LIMIT 50";
+  }
 
-$result = mysql_query($sql);
 
-//$row=mysql_fetch_array($result);
-//echo $row['title'];
 
-//if (mysql_num_rows($result) == 0){
-  //echo "<h2> You did not dislike any movies yet</h2>";
-//}else{
+  $result = mysql_query($sql);
+  
   echo "<table>";
   echo "<tr>";
+  echo "<th width='150'>Rank</th>";
   echo "<th width='150'>Title</th>";
   echo "<th width='150'>Poster</th>";
   echo "<th width='150'>Rating</th>";
   echo "<th width='150'>Delete?</th>";
   echo "</tr>";
-
+  $rank = 1;
   while($row2=mysql_fetch_array($result)){
-    //echo $row2['title'];
-
     echo "<tr>";
+    echo "<td style='text-align: center'>".$rank."</td>";
+    $rank = $rank + 1;
     echo "<td style='text-align: center'>".$row2['title']."</td>";
     echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
     echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
@@ -124,9 +140,11 @@ $result = mysql_query($sql);
     echo "</tr>";     
   }
   echo "</table>";
-//}  
-       
-  
+}else{
+  echo "<h2>There was an error with your filter!</h2>";
+  echo "<h2>Please edit and try again!<h2>";
+}
+
   //echo "</div>";
 //echo "</div>";  
 //echo "<div class='footer1'>";
