@@ -60,33 +60,33 @@ if($_SESSION['active'] == false){
     <tr><td>Genre:</td>
       <td>
       <select id='genre' name='genre'>
-        <option value="">-Select-</option>
-        <option value="Action">Action</option>
-        <option value="Adventure">Adventure</option>
-        <option value="Animation">Animation</option>
-        <option value="Children">Children</option>
-        <option value="Comedy">Comedy</option>
-        <option value="Crime">Crime</option>
-        <option value="Documentary">Documentary</option>
-        <option value="Drama">Drama</option>
-        <option value="Fantasy">Fantasy</option>
-        <option value="Filmnoir">Film-Noir</option>
-        <option value="Horror">Horror</option>
-        <option value="Imax">IMAX</option>
-        <option value="Musical">Musical</option>
-        <option value="Mystery">Mystery</option>
-        <option value="Romance">Romance</option>
-        <option value="Scifi">Sci-Fi</option>
-        <option value="Short">Short</option>
-        <option value="Thriller">Thriller</option>
-        <option value="War">War</option>
-        <option value="Western">Western</option>
+        <option value="">All</option>
+        <option <?php if($_GET['genre']=='Action'){echo "selected";};?> value="Action">Action</option>
+        <option <?php if($_GET['genre']=='Adventure'){echo "selected";};?> value="Adventure">Adventure</option>
+        <option <?php if($_GET['genre']=='Animation'){echo "selected";};?> value="Animation">Animation</option>
+        <option <?php if($_GET['genre']=='Children'){echo "selected";};?> value="Children">Children</option>
+        <option <?php if($_GET['genre']=='Comedy'){echo "selected";};?> value="Comedy">Comedy</option>
+        <option <?php if($_GET['genre']=='Crime'){echo "selected";};?> value="Crime">Crime</option>
+        <option <?php if($_GET['genre']=='Documentary'){echo "selected";};?> value="Documentary">Documentary</option>
+        <option <?php if($_GET['genre']=='Drama'){echo "selected";};?> value="Drama">Drama</option>
+        <option <?php if($_GET['genre']=='Fantasy'){echo "selected";};?> value="Fantasy">Fantasy</option>
+        <option <?php if($_GET['genre']=='Film-Noir'){echo "selected";};?> value="Film-Noir">Film-Noir</option>
+        <option <?php if($_GET['genre']=='Horror'){echo "selected";};?> value="Horror">Horror</option>
+        <option <?php if($_GET['genre']=='IMAX'){echo "selected";};?> value="Imax">IMAX</option>
+        <option <?php if($_GET['genre']=='Musical'){echo "selected";};?> value="Musical">Musical</option>
+        <option <?php if($_GET['genre']=='Mystery'){echo "selected";};?> value="Mystery">Mystery</option>
+        <option <?php if($_GET['genre']=='Romance'){echo "selected";};?> value="Romance">Romance</option>
+        <option <?php if($_GET['genre']=='Sci-Fi'){echo "selected";};?> value="Scifi">Sci-Fi</option>
+        <option <?php if($_GET['genre']=='Short'){echo "selected";};?> value="Short">Short</option>
+        <option <?php if($_GET['genre']=='Thriller'){echo "selected";};?> value="Thriller">Thriller</option>
+        <option <?php if($_GET['genre']=='War'){echo "selected";};?> value="War">War</option>
+        <option <?php if($_GET['genre']=='Western'){echo "selected";};?> value="Western">Western</option>
       </select>
       </td></tr>
       <tr><td><label>Year From </label><br><label>(earliest 1903):</label></td>
-      <td><br><input type='text' id='yearFrom' name='yearFrom' placeholder='Year From'/></td><tr>
+      <td><br><input type='text' id='yearFrom' name='yearFrom' <?php if($_GET['yearFrom']==''){echo "placeholder='Year From'";}else{echo "value='".$_GET['yearFrom']."'";};?>/></td><tr>
       <tr><td><label>Year To </label><br><label>(latest 2011):</label></td>
-      <td><br><input type='text' id='yearTo' name='yearTo' placeholder='Year To'/></td></tr>
+      <td><br><input type='text' id='yearTo' name='yearTo' <?php if($_GET['yearTo']==''){echo "placeholder='Year To'";}else{echo "value='".$_GET['yearTo']."'";};?>/></td></tr>
       <tr>
     </table>
     <button type='submit'>Go!</button>  
@@ -118,7 +118,10 @@ if($_SESSION['active'] == false){
             echo "<p>".$_GET['yearFrom']."</p>"; 
             echo "<h2>Year To:</h2>";
             echo "<p>".$_GET['yearTo']."</p>";
-          }  
+          }elseif($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){   
+            echo "<h2>Year To:</h2>";
+            echo "<p>".$_GET['yearTo']."</p>";
+          } 
       }
 
     ?>
@@ -149,17 +152,22 @@ if($_GET['error']==''){
     $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
   }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){
     $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
-  }
+  }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){
+    $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
+  }elseif($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){
+    $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m  WHERE m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
+  }    
 
   $result = mysql_query($sql) or die(mysql_error());
-  
+  //$result = mysql_query($sql) or die("<h2>ERROR OCCURED</h2>");
+
   echo "<table>";
   echo "<tr>";
   echo "<th width='150'>Rank</th>";
   echo "<th width='150'>Title</th>";
   echo "<th width='150'>Poster</th>";
   echo "<th width='150'>Rating</th>";
-  echo "<th width='150'>Delete?</th>";
+  //echo "<th width='150'>Delete?</th>";
   echo "</tr>";
   $rank = 1;
   while($row2=mysql_fetch_array($result)){
@@ -169,7 +177,7 @@ if($_GET['error']==''){
     echo "<td style='text-align: center'>".$row2['title']."</td>";
     echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
     echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
-    echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td>";
+    //echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td>";
     echo "</tr>";     
   }
   echo "</table>";

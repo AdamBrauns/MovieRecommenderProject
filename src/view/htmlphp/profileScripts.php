@@ -47,14 +47,14 @@ if(key($_POST['clicked']) == "password"){
 	//echo " you made it";
 	$sql = "DELETE FROM user_upvotes WHERE username='".$_SESSION['currentUser']."';";
 	mysql_query($sql);
-	header("Location: profile.php");
+	header("Location: profile.php?delete=likes");
 
 }elseif(key($_POST['clicked']) == "rmdisliked"){
 
 	//echo " you made it";
 	$sql = "DELETE FROM user_downvotes WHERE username='".$_SESSION['currentUser']."';";
 	mysql_query($sql);
-	header("Location: profile.php");
+	header("Location: profile.php?delete=dislikes");
 
 }else{
 

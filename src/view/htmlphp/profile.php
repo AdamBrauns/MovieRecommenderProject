@@ -71,6 +71,10 @@ if($_SESSION['active'] == false){
         echo "<h2 style='color:red;'>Error Changing Password! Try Again!</h2>";
       }elseif($_GET['error'] == "false"){
         echo "<h2 style='color:green;'>Password successfully changed!</h2>";
+      }elseif($_GET['delete'] == "dislikes"){
+        echo "<h2 style='color:green;'>Successfully deleted all dislikes!</h2>";
+      }elseif($_GET['delete'] == "likes"){
+        echo "<h2 style='color:green;'>Successfully deleted all likes!</h2>";
       }
       echo "<h2>Account Information</h2>";
       echo "<h2>Username: </h2>";
