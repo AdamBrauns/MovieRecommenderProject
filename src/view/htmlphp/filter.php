@@ -1,5 +1,6 @@
 <?php
 
+if($_GET['search']==""){
 $genre = $_POST['genre'];
 $yearFrom = $_POST['yearFrom'];
 $yearTo = $_POST['yearTo'];
@@ -39,6 +40,10 @@ if($errors !== 1){
 	header("Location: topMovies.php?genre=".$genre."&yearFrom=".$yearFrom."&yearTo=".$yearTo);
 }else{
 	echo "You broke it...";
+}
+}else{
+	//echo "you made it, congrats!";
+	header("Location: search.php?search=".$_POST['search']);
 }
 
 ?>

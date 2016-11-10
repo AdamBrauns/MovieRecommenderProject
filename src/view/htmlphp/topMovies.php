@@ -39,11 +39,9 @@ if($_SESSION['active'] == false){
             <ul id="menu">
               <li><a href=""></a></li>
               <li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
               <li><a href="rater.php">Movie Rater</a></li>
               <li id="menu_active"><a href="topMovies.php">Top 50</a></li>
+              <li><a href="search.php">Search</a></li>
               <li><a href="profile.php">Profile</a></li>
             </ul>
           </nav>
@@ -121,7 +119,15 @@ if($_SESSION['active'] == false){
           }elseif($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){   
             echo "<h2>Year To:</h2>";
             echo "<p>".$_GET['yearTo']."</p>";
-          } 
+          }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){   
+            echo "<h2>Year From:</h2>";
+            echo "<p>".$_GET['yearFrom']."</p>";
+          }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){  
+            echo "<h2>Year From:</h2>";
+            echo "<p>".$_GET['yearFrom']."</p>";
+            echo "<h2>Year To:</h2>";
+            echo "<p>".$_GET['yearTo']."</p>";
+          }  
       }
 
     ?>
@@ -156,6 +162,10 @@ if($_GET['error']==''){
     $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
   }elseif($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){
     $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m  WHERE m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
+  }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){  
+    $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
+  }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){  
+    $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
   }    
 
   $result = mysql_query($sql) or die(mysql_error());

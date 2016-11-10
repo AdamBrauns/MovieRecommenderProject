@@ -41,11 +41,9 @@ if($_SESSION['active'] == false){
             <ul id="menu">
               <li><a href=""></a></li>
               <li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
               <li><a href="rater.php">Movie Rater</a></li>
               <li><a href="topMovies.php">Top 50</a></li>
+              <li><a href="search.php">Search</a></li>
               <li id="menu_active"><a href="profile.php">Profile</a></li>
             </ul>
           </nav>
