@@ -90,6 +90,38 @@ if($_SESSION['active'] == false){
       <tr>
     </table>
     <button type='submit'>Go!</button>  
+    <h2>Current Filter's In Use:</h2>
+    <?php
+
+      if($_GET['error']=='true'){
+        echo "<p>You have an error, no filters in use";
+      }else{
+          if($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
+            echo "<p>All time top movies</p>";
+          }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
+            echo "<h2>Genre:</h2>";
+            echo "<p>".$_GET['genre']."</p>";  
+          }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){
+            echo "<h2>Genre:</h2>";
+            echo "<p>".$_GET['genre']."</p>";
+            echo "<h2>Year From:</h2>";
+            echo "<p>".$_GET['yearFrom']."</p>";
+          }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){
+            echo "<h2>Genre:</h2>";
+            echo "<p>".$_GET['genre']."</p>";
+            echo "<h2>Year To:</h2>";
+            echo "<p>".$_GET['yearTo']."</p>";
+          }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){
+            echo "<h2>Genre:</h2>";
+            echo "<p>".$_GET['genre']."</p>";
+            echo "<h2>Year From:</h2>";
+            echo "<p>".$_GET['yearFrom']."</p>"; 
+            echo "<h2>Year To:</h2>";
+            echo "<p>".$_GET['yearTo']."</p>";
+          }  
+      }
+
+    ?>
   </form>
   </div>    
   <div style="float: right; width: 70%">
@@ -110,15 +142,16 @@ $sql = "";
 if($_GET['error']==''){
   //echo "<p>THERE WAS AN ERROR</p>";
   if($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
-    $sql = "SELECT * FROM  movies ORDER BY rtAudienceScore DESC LIMIT 50";
+    $sql = "SELECT m.title, m.rtPictureURL, m.rtAudienceScore FROM  movie_usa m ORDER BY rtAudienceScore DESC LIMIT 50";
   }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
-    //echo "SELECT * FROM movies m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' ORDER BY m.rtAudienceScore DESC LIMIT 50";
-    $sql = "SELECT DISTINCT * FROM movies m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' ORDER BY m.rtAudienceScore DESC LIMIT 50";
+    $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' ORDER BY m.rtAudienceScore DESC LIMIT 50";
+  }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){
+    $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
+  }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){
+    $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
   }
 
-
-
-  $result = mysql_query($sql);
+  $result = mysql_query($sql) or die(mysql_error());
   
   echo "<table>";
   echo "<tr>";

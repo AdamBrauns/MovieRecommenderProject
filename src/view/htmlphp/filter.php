@@ -11,6 +11,9 @@ if($yearFrom !== "" && $yearFrom < 1903){
 if($yearTo !== "" && $yearTo > 2011){
 	$errors = $errors + 1;
 }
+if($yearTo !=="" && $yearFrom > $yearTo){
+	$errors = $errors + 1;
+}
 
 if($errors !== 1){
 	header("Location: topMovies.php?error=true");
