@@ -89,32 +89,36 @@ if(!$_GET['search']==''){
 
   $result = mysql_query($sql) or die(mysql_error());
   //$result = mysql_query($sql) or die("<h2>ERROR OCCURED</h2>");
-  if(mysql_num_rows($result) > 50){
-    echo "<h2>Your result returned more than 50 movies. Consider refining your search!</h2>";
-    $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m WHERE m.title LIKE '%".$_GET['search']."%' LIMIT 50"; 
-    $result = mysql_query($sql) or die(mysql_error());
-  }
+  if(mysql_num_rows($result) == 0){
+    echo "<h2>Your search did not find a movie. Try again!";
+  }else{  
+    if(mysql_num_rows($result) > 50){
+      echo "<h2>Your result returned more than 50 movies. Consider refining your search!</h2>";
+      $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m WHERE m.title LIKE '%".$_GET['search']."%' LIMIT 50"; 
+      $result = mysql_query($sql) or die(mysql_error());
+    }
 
-  echo "<table>";
-  echo "<tr>";
-  echo "<th width='150'>Rank</th>";
-  echo "<th width='150'>Title</th>";
-  echo "<th width='150'>Poster</th>";
-  echo "<th width='150'>Rating</th>";
-  //echo "<th width='150'>Delete?</th>";
-  echo "</tr>";
-  $counter = 1;
-  while($row2=mysql_fetch_array($result)){
+    echo "<table>";
     echo "<tr>";
-    echo "<td style='text-align: center'>".$counter."</td>";
-    $counter = $counter + 1;
-    echo "<td style='text-align: center'>".$row2['title']."</td>";
-    echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
-    echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
-    //echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td>";
-    echo "</tr>";     
-  }
-  echo "</table>";
+    echo "<th width='150'>Rank</th>";
+    echo "<th width='150'>Title</th>";
+    echo "<th width='150'>Poster</th>";
+    echo "<th width='150'>Rating</th>";
+    //echo "<th width='150'>Delete?</th>";
+    echo "</tr>";
+    $counter = 1;
+    while($row2=mysql_fetch_array($result)){
+      echo "<tr>";
+      echo "<td style='text-align: center'>".$counter."</td>";
+      $counter = $counter + 1;
+      echo "<td style='text-align: center'>".$row2['title']."</td>";
+      echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
+      echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
+      //echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td>";
+      echo "</tr>";     
+    }
+    echo "</table>";
+  }  
 }else{
   echo "<h2>Search for a movie then click go!</h2>";
 }

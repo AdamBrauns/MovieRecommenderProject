@@ -52,32 +52,87 @@ if($_SESSION['active'] == false){
 </div>
 <div class="content">
   <div style="float: left; width: 30%">
-    Genre: &nbsp;
-      <select>
-        <option value="">-Select-</option>
-        <option value="action">Action</option>
-        <option value="adventure">Adventure</option>
-        <option value="animation">Animation</option>
-        <option value="children">Children</option>
-        <option value="comedy">Comedy</option>
-        <option value="crime">Crime</option>
-        <option value="documentary">Documentary</option>
-        <option value="drama">Drama</option>
-        <option value="fantasy">Fantasy</option>
-        <option value="filmnoir">Film-Noir</option>
-        <option value="horror">Horror</option>
-        <option value="imax">IMAX</option>
-        <option value="musical">Musical</option>
-        <option value="mystery">Mystery</option>
-        <option value="romance">Romance</option>
-        <option value="scifi">Sci-Fi</option>
-        <option value="short">Short</option>
-        <option value="thriller">Thriller</option>
-        <option value="war">War</option>
-        <option value="western">Western</option>
+    <h2>Filter Movies</h2>
+    <form method='post' action=''>
+    <table>
+    <tr><td>Genre:</td>
+      <td>
+      <select id='genre' name='genre'>
+        <option value="">All</option>
+        <option <?php if($_GET['genre']=='Action'){echo "selected";};?> value="Action">Action</option>
+        <option <?php if($_GET['genre']=='Adventure'){echo "selected";};?> value="Adventure">Adventure</option>
+        <option <?php if($_GET['genre']=='Animation'){echo "selected";};?> value="Animation">Animation</option>
+        <option <?php if($_GET['genre']=='Children'){echo "selected";};?> value="Children">Children</option>
+        <option <?php if($_GET['genre']=='Comedy'){echo "selected";};?> value="Comedy">Comedy</option>
+        <option <?php if($_GET['genre']=='Crime'){echo "selected";};?> value="Crime">Crime</option>
+        <option <?php if($_GET['genre']=='Documentary'){echo "selected";};?> value="Documentary">Documentary</option>
+        <option <?php if($_GET['genre']=='Drama'){echo "selected";};?> value="Drama">Drama</option>
+        <option <?php if($_GET['genre']=='Fantasy'){echo "selected";};?> value="Fantasy">Fantasy</option>
+        <option <?php if($_GET['genre']=='Film-Noir'){echo "selected";};?> value="Film-Noir">Film-Noir</option>
+        <option <?php if($_GET['genre']=='Horror'){echo "selected";};?> value="Horror">Horror</option>
+        <option <?php if($_GET['genre']=='IMAX'){echo "selected";};?> value="Imax">IMAX</option>
+        <option <?php if($_GET['genre']=='Musical'){echo "selected";};?> value="Musical">Musical</option>
+        <option <?php if($_GET['genre']=='Mystery'){echo "selected";};?> value="Mystery">Mystery</option>
+        <option <?php if($_GET['genre']=='Romance'){echo "selected";};?> value="Romance">Romance</option>
+        <option <?php if($_GET['genre']=='Sci-Fi'){echo "selected";};?> value="Scifi">Sci-Fi</option>
+        <option <?php if($_GET['genre']=='Short'){echo "selected";};?> value="Short">Short</option>
+        <option <?php if($_GET['genre']=='Thriller'){echo "selected";};?> value="Thriller">Thriller</option>
+        <option <?php if($_GET['genre']=='War'){echo "selected";};?> value="War">War</option>
+        <option <?php if($_GET['genre']=='Western'){echo "selected";};?> value="Western">Western</option>
       </select>
-      <h2>THIS IS A TEST</h2>
-  </div>    
+      </td></tr>
+      <tr><td><label>Year From </label><br><label>(earliest 1903):</label></td>
+      <td><br><input type='text' id='yearFrom' name='yearFrom' <?php if($_GET['yearFrom']==''){echo "placeholder='Year From'";}else{echo "value='".$_GET['yearFrom']."'";};?>/></td><tr>
+      <tr><td><label>Year To </label><br><label>(latest 2011):</label></td>
+      <td><br><input type='text' id='yearTo' name='yearTo' <?php if($_GET['yearTo']==''){echo "placeholder='Year To'";}else{echo "value='".$_GET['yearTo']."'";};?>/></td></tr>
+      <tr>
+    </table>
+    <button type='submit'>Go!</button>  
+    <h2>Current Filter's In Use:</h2>
+    <?php
+
+      if($_GET['error']=='true'){
+        echo "<p>You have an error, no filters in use";
+      }else{
+          if($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
+            echo "<p>All time top movies</p>";
+          }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
+            echo "<h2>Genre:</h2>";
+            echo "<p>".$_GET['genre']."</p>";  
+          }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){
+            echo "<h2>Genre:</h2>";
+            echo "<p>".$_GET['genre']."</p>";
+            echo "<h2>Year From:</h2>";
+            echo "<p>".$_GET['yearFrom']."</p>";
+          }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){
+            echo "<h2>Genre:</h2>";
+            echo "<p>".$_GET['genre']."</p>";
+            echo "<h2>Year To:</h2>";
+            echo "<p>".$_GET['yearTo']."</p>";
+          }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){
+            echo "<h2>Genre:</h2>";
+            echo "<p>".$_GET['genre']."</p>";
+            echo "<h2>Year From:</h2>";
+            echo "<p>".$_GET['yearFrom']."</p>"; 
+            echo "<h2>Year To:</h2>";
+            echo "<p>".$_GET['yearTo']."</p>";
+          }elseif($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){   
+            echo "<h2>Year To:</h2>";
+            echo "<p>".$_GET['yearTo']."</p>";
+          }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){   
+            echo "<h2>Year From:</h2>";
+            echo "<p>".$_GET['yearFrom']."</p>";
+          }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){  
+            echo "<h2>Year From:</h2>";
+            echo "<p>".$_GET['yearFrom']."</p>";
+            echo "<h2>Year To:</h2>";
+            echo "<p>".$_GET['yearTo']."</p>";
+          }  
+      }
+
+    ?>
+  </form>
+  </div> 
   <div style="float: right; width: 70%">
 <?php
 
