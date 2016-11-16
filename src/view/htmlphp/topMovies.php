@@ -87,7 +87,7 @@ if($_SESSION['active'] == false){
       <td><br><input type='text' id='yearTo' name='yearTo' <?php if($_GET['yearTo']==''){echo "placeholder='Year To'";}else{echo "value='".$_GET['yearTo']."'";};?>/></td></tr>
       <tr>
     </table>
-    <button type='submit'>Go!</button>  
+    <button type='submit' name='filter' value='topMovies'>Go!</button>  
     <h2>Current Filter's In Use:</h2>
     <?php
 

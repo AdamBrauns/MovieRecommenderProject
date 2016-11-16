@@ -23,7 +23,7 @@ if($_SESSION['active'] == false){
 <script type="text/javascript" src="../js/Myriad_Pro_italic_400.font.js"></script>
 <script type="text/javascript" src="../js/Myriad_Pro_400.font.js"></script>
 </head>
-<body id="page1">
+<body>
 <div class="body1">
   <div class="main">
     <header>
@@ -53,7 +53,7 @@ if($_SESSION['active'] == false){
 <div class="content">
   <div style="float: left; width: 30%">
     <h2>Filter Movies</h2>
-    <form method='post' action=''>
+    <form method='post' action='filter.php'>
     <table>
     <tr><td>Genre:</td>
       <td>
@@ -87,7 +87,7 @@ if($_SESSION['active'] == false){
       <td><br><input type='text' id='yearTo' name='yearTo' <?php if($_GET['yearTo']==''){echo "placeholder='Year To'";}else{echo "value='".$_GET['yearTo']."'";};?>/></td></tr>
       <tr>
     </table>
-    <button type='submit'>Go!</button>  
+    <button type='submit' name='filter' value='rater'>Go!</button>  
     <h2>Current Filter's In Use:</h2>
     <?php
 
@@ -147,27 +147,49 @@ $mydb=mysql_select_db("a4803033_class");
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM movies ORDER BY RAND() LIMIT 1"; //Any movie (includes foreign)
-//$sql = "SELECT ID, title, country FROM movies, movie_countries WHERE movies.ID = movie_countries.movieID AND movie_countries.country =  'USA' ORDER BY RAND( )  LIMIT 1";
+$sql = "";
+if($_GET['error']==''){
 
-$result = mysql_query($sql);
+  $sql = "SELECT * FROM movies ORDER BY RAND() LIMIT 1"; //Any movie (includes foreign)
+  //$sql = "SELECT ID, title, country FROM movies, movie_countries WHERE movies.ID = movie_countries.movieID AND movie_countries.country =  'USA' ORDER BY RAND( )  LIMIT 1";
 
-$row=mysql_fetch_array($result);
+  if($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
+    $sql = "SELECT * FROM  movie_usa m ORDER BY RAND() LIMIT 1";
+  }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
+    $sql = "SELECT DISTINCT * FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' ORDER BY RAND() LIMIT 1";
+  }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){
+    $sql = "SELECT DISTINCT * FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year <= ".$_GET['yearTo']." ORDER BY RAND() LIMIT 1";
+  }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){
+    $sql = "SELECT DISTINCT * FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." ORDER BY RAND() LIMIT 1";
+  }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){
+    $sql = "SELECT DISTINCT * FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY RAND() LIMIT 1";
+  }elseif($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){
+    $sql = "SELECT DISTINCT * FROM movie_usa m  WHERE m.year <= ".$_GET['yearTo']." ORDER BY RAND() LIMIT 1";
+  }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){  
+    $sql = "SELECT DISTINCT * FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." ORDER BY RAND() LIMIT 1";
+  }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){  
+    $sql = "SELECT DISTINCT * FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY RAND() LIMIT 1";
+  } 
 
-$movie_imageurl = $row['rtPictureURL'];
-$movie_title = $row['title'];
-$movie_id = $row['ID'];
+  $result = mysql_query($sql);
+
+  $row=mysql_fetch_array($result);
+
+  $movie_imageurl = $row['rtPictureURL'];
+  $movie_title = $row['title'];
+  $movie_id = $row['ID'];
 
   echo "<div style='position: absolute; top: 40%; transform: translateY(-40%)';>";
   echo "<p class='movietitle'>".$movie_title."</p>";
   echo "<p class='movietitle'><a href='rater.php'>Skip Movie</a></p>";
     $_SESSION['movie_id'] = $movie_id;
+    $_SESSION['page'] = $_SERVER['REQUEST_URI'];
     echo "<a href='upvote.php'><img src='../images/Thumbs_Up.png' height='200' width='200' class='thumb'></a>";
     echo "<img src='".$movie_imageurl."' height='200' width='150' class='moviepic'>";
     echo "<a href='downvote.php'><img src='../images/Thumbs_Down.png' height='200' width='200' class='thumb'></a>";
   echo "</div>";
-echo "</div>";  
-echo "<div class='footer1'>";
+  echo "</div>";  
+  echo "<div class='footer1'>";
   echo "<div class='main'>";
     echo "<footer>";
       echo "<p style='color:white;''>Movie Information</p>";
@@ -183,7 +205,11 @@ echo "<div class='footer1'>";
             echo "<td>".$movie_title."</td>";
             echo "<td>Steven Speilberg</td>"; 
             echo "<td>Batman<br> robin</td>";
-          echo "<td>9.8</td>";
+            echo "<td>9.8</td>";
+}else{
+  echo "<h2>There was an error with your filter!</h2>";
+  echo "<h2>Please edit and try again!<h2>";
+}
 ?>            
           </tr>
         </table>

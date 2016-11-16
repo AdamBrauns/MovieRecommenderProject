@@ -20,6 +20,11 @@ body {
 	font:14px Arial, Helvetica, sans-serif;
 	color:#3c4046;
 	line-height:20px;
+  	background: url("../images/lightblue.jpg") no-repeat center center fixed; 
+  	-webkit-background-size: cover;
+ 	 -moz-background-size: cover;
+ 	 -o-background-size: cover;
+ 	 background-size: cover;
 }
 .inner_copy, .inner_copy a {
 	border:0;
@@ -157,8 +162,8 @@ a {
 	text-align: center;
 	font-size: 2em;
 }
-body {
-	background-color: #696969;
+.filter {
+
 }
 
 .pad_1 {
