@@ -15,6 +15,8 @@ if($_SESSION['active'] == false){
 <meta charset="utf-8">
 <link rel="stylesheet" href="../css/reset.css" type="text/css" media="all">
 <link rel="stylesheet" href="../css/layout.css" type="text/css" media="all">
+<link rel="stylesheet" href="../css/testcss.css" type="text/css" media="all">
+<!--
 <link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
 <script type="text/javascript" src="../js/jquery-1.4.2.js" ></script>
 <script type="text/javascript" src="../js/cufon-yui.js"></script>
@@ -22,6 +24,7 @@ if($_SESSION['active'] == false){
 <script type="text/javascript" src="../js/Myriad_Pro_italic_600.font.js"></script>
 <script type="text/javascript" src="../js/Myriad_Pro_italic_400.font.js"></script>
 <script type="text/javascript" src="../js/Myriad_Pro_400.font.js"></script>
+-->
 </head>
 <body id="page1">
 <div class="body1">
@@ -51,12 +54,12 @@ if($_SESSION['active'] == false){
   </div>
 </div>
 <div class="content">
-  <div style="float: left; width: 30%">
+  <div class='search'>
     <h2>Search Movies</h2>
     <form method='post' action='filter.php?search=true'>
       <label>Search: </label><br>
-      <input type='text' id='search' name='search' <?php if($_GET['search']==''){echo "placeholder='Search'";}else{echo "value='".$_GET['search']."'";};?>/>
-    <button type='submit'>Go!</button>  
+      <input type='text' id='search' name='search' <?php if($_GET['search']==''){echo "value=''";}else{echo "value='".$_GET['search']."'";};?>/>
+      <button type='submit'>Go!</button>  
     <h2>Current Filter's In Use:</h2>
     <?php
 
@@ -68,7 +71,7 @@ if($_SESSION['active'] == false){
     ?>
   </form>
   </div>    
-  <div style="float: right; width: 70%">
+  <div class='results'>
 <?php
 
 $servername = "mysql4.000webhost.com";
@@ -93,7 +96,7 @@ if(!$_GET['search']==''){
     echo "<h2>Your search did not find a movie. Try again!";
   }else{  
     if(mysql_num_rows($result) > 50){
-      echo "<h2>Your result returned more than 50 movies. Consider refining your search!</h2>";
+      echo "<h2>Your result returned more than 50 movies!<br><br> Consider refining your search!</h2>";
       $sql = "SELECT DISTINCT m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m WHERE m.title LIKE '%".$_GET['search']."%' LIMIT 50"; 
       $result = mysql_query($sql) or die(mysql_error());
     }

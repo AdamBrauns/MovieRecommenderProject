@@ -15,6 +15,8 @@ if($_SESSION['active'] == false){
 <meta charset="utf-8">
 <link rel="stylesheet" href="../css/reset.css" type="text/css" media="all">
 <link rel="stylesheet" href="../css/layout.css" type="text/css" media="all">
+<link rel="stylesheet" href="../css/testcss.css" type="text/css" media="all">
+<!--
 <link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
 <script type="text/javascript" src="../js/jquery-1.4.2.js" ></script>
 <script type="text/javascript" src="../js/cufon-yui.js"></script>
@@ -22,6 +24,7 @@ if($_SESSION['active'] == false){
 <script type="text/javascript" src="../js/Myriad_Pro_italic_600.font.js"></script>
 <script type="text/javascript" src="../js/Myriad_Pro_italic_400.font.js"></script>
 <script type="text/javascript" src="../js/Myriad_Pro_400.font.js"></script>
+-->
 </head>
 <body>
 <div class="body1">
@@ -51,12 +54,12 @@ if($_SESSION['active'] == false){
   </div>
 </div>
 <div class="content">
-  <div style="float: left; width: 30%">
+  <div class='filter'>
     <h2>Filter Movies</h2>
     <form method='post' action='filter.php'>
     <table>
-    <tr><td>Genre:</td>
-      <td>
+    <tr><td width='200' height='20'>Genre:</td>
+      <td width='200' height='20'>
       <select id='genre' name='genre'>
         <option value="">All</option>
         <option <?php if($_GET['genre']=='Action'){echo "selected";};?> value="Action">Action</option>
@@ -81,10 +84,10 @@ if($_SESSION['active'] == false){
         <option <?php if($_GET['genre']=='Western'){echo "selected";};?> value="Western">Western</option>
       </select>
       </td></tr>
-      <tr><td><label>Year From </label><br><label>(earliest 1903):</label></td>
-      <td><br><input type='text' id='yearFrom' name='yearFrom' <?php if($_GET['yearFrom']==''){echo "placeholder='Year From'";}else{echo "value='".$_GET['yearFrom']."'";};?>/></td><tr>
-      <tr><td><label>Year To </label><br><label>(latest 2011):</label></td>
-      <td><br><input type='text' id='yearTo' name='yearTo' <?php if($_GET['yearTo']==''){echo "placeholder='Year To'";}else{echo "value='".$_GET['yearTo']."'";};?>/></td></tr>
+      <tr><td height='20'><label>Year From </label><br><label>(earliest 1903):</label></td>
+      <td height='20'><br><input type='text' id='yearFrom' name='yearFrom' <?php if($_GET['yearFrom']==''){echo "value=''";}else{echo "value='".$_GET['yearFrom']."'";};?>/></td><tr>
+      <tr><td height='20'><label>Year To </label><br><label>(latest 2011):</label></td>
+      <td height='20'><br><input type='text' id='yearTo' name='yearTo' <?php if($_GET['yearTo']==''){echo "value=''";}else{echo "value='".$_GET['yearTo']."'";};?>/></td></tr>
       <tr>
     </table>
     <button type='submit' name='filter' value='rater'>Go!</button>  
@@ -95,7 +98,7 @@ if($_SESSION['active'] == false){
         echo "<p>You have an error, no filters in use";
       }else{
           if($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
-            echo "<p>All time top movies</p>";
+            echo "<p>All movies</p>";
           }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
             echo "<h2>Genre:</h2>";
             echo "<p>".$_GET['genre']."</p>";  

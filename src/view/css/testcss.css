@@ -21,10 +21,6 @@ body {
 	color:#3c4046;
 	line-height:20px;
   	background: url("../images/lightblue.jpg") no-repeat center center fixed; 
-  	-webkit-background-size: cover;
- 	 -moz-background-size: cover;
- 	 -o-background-size: cover;
- 	 background-size: cover;
 }
 .inner_copy, .inner_copy a {
 	border:0;
@@ -48,7 +44,6 @@ body {
 .body1, .footer1{
 	color:#000000;
 	background-color: #000000;
-
 }
 
 a {
@@ -157,19 +152,71 @@ footer {
 a {
 	outline:none;
 }
+
 .movietitle {
 	padding-top: 10px;
 	text-align: center;
 	font-size: 2em;
 }
 .filter{
+	position: absolute;
 	float: left; 
 	width: 30%;
-	padding-left: 5%;
+	padding-left: 10px;
 }
 
-.test{
-	color: white;
+.filter input {
+	background: transparent;
+	border: 1px solid black;
+	line-height: 20px;
+	width: 100px;
+	text-align: center;
+}
+
+.filter select {
+	background: transparent;
+	border: 1px solid black;
+	line-height: 25px;
+	width: 100px;
+	text-align: center;
+}
+
+.filter button {
+	background: transparent;
+	border: 1px solid black;
+	line-height: 20px;
+	text-align: center;
+	width: 75px;
+}
+
+.search{
+	position: absolute;
+	float: left; 
+	width: 30%;
+	padding-left: 10px;
+}
+
+.search input {
+	background: transparent;
+	border: 1px solid black;
+	line-height: 20px;
+	width: 150px;
+	text-align: center;
+}
+
+.search button {
+	background: transparent;
+	border: 1px solid black;
+	line-height: 17px;
+	text-align: center;
+	width: 50px;
+}
+
+.results {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	float: right; 
+	width: 70%;
 }
 
 .pad_1 {
