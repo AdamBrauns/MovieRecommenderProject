@@ -184,7 +184,7 @@ if($_GET['error']==''){
 
   echo "<div style='position: absolute; top: 40%; transform: translateY(-40%)';>";
   echo "<p class='movietitle'>".$movie_title."</p>";
-  echo "<p class='movietitle'><a href='rater.php'>Skip Movie</a></p>";
+  echo "<p class='movietitle'><a href='".$_SERVER['REQUEST_URI']."'>Skip Movie</a></p>";
     $_SESSION['movie_id'] = $movie_id;
     $_SESSION['page'] = $_SERVER['REQUEST_URI'];
     echo "<a href='upvote.php'><img src='../images/Thumbs_Up.png' height='200' width='200' class='thumb'></a>";
