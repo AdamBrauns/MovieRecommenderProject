@@ -79,7 +79,8 @@ if($_SESSION['active'] == false){
 
         $mydb=mysql_select_db("a4803033_class");
 
-        $sql = "SELECT movieID FROM user_upvotes WHERE username='".$currentUser."'";
+        //$sql = "SELECT movieID FROM user_upvotes WHERE username='".$currentUser."'";
+        $sql = "SELECT movieID FROM user_ratings WHERE username='".$currentUser."' AND rating=1";
 
         $result = mysql_query($sql);
 
@@ -123,7 +124,8 @@ if($_SESSION['active'] == false){
 
         $mydb=mysql_select_db("a4803033_class");
 
-        $sql = "SELECT movieID FROM user_downvotes WHERE username='".$currentUser."'";
+        //$sql = "SELECT movieID FROM user_downvotes WHERE username='".$currentUser."'";
+        $sql = "SELECT movieID FROM user_ratings WHERE username='".$currentUser."' AND rating=0";
 
         $result = mysql_query($sql);
 

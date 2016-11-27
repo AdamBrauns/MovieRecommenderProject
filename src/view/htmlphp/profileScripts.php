@@ -45,21 +45,34 @@ if(key($_POST['clicked']) == "password"){
 }elseif(key($_POST['clicked']) == "rmliked"){
 
 	//echo " you made it";
-	$sql = "DELETE FROM user_upvotes WHERE username='".$_SESSION['currentUser']."';";
+	//$sql = "DELETE FROM user_upvotes WHERE username='".$_SESSION['currentUser']."';";
+	$sql = "DELETE FROM user_ratings WHERE username='".$_SESSION['currentUser']."' AND rating=1;";
 	mysql_query($sql);
 	header("Location: profile.php?delete=likes");
 
 }elseif(key($_POST['clicked']) == "rmdisliked"){
 
 	//echo " you made it";
-	$sql = "DELETE FROM user_downvotes WHERE username='".$_SESSION['currentUser']."';";
+	//$sql = "DELETE FROM user_downvotes WHERE username='".$_SESSION['currentUser']."';";
+	$sql = "DELETE FROM user_ratings WHERE username='".$_SESSION['currentUser']."' AND rating=0;";
+
 	mysql_query($sql);
 	header("Location: profile.php?delete=dislikes");
 
+}elseif(isset($_GET['rm'])){
+	$filters = $_SESSION['page'];
+
+	$movieID = $_GET['rm'];
+	$sql = "DELETE FROM user_ratings WHERE username='".$_SESSION['currentUser']."' AND movieID='".$movieID."';";
+
+	mysql_query($sql);
+
+	header("location: ".$filters);
 }else{
 
 	$movieID = key($_POST['clicked']);
 
+/*
 	$table = "";
 	if($_SESSION['prevpage'] == "liked"){
 		$table = "user_upvotes";
@@ -70,6 +83,9 @@ if(key($_POST['clicked']) == "password"){
 	}
 
 	$sql = "DELETE FROM ".$table." WHERE username='".$_SESSION['currentUser']."' AND movieID='".$movieID."';";
+*/
+
+	$sql = "DELETE FROM user_ratings WHERE username='".$_SESSION['currentUser']."' AND movieID='".$movieID."';";
 
 	mysql_query($sql);
 
