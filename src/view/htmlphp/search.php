@@ -95,9 +95,9 @@ if(!$_GET['search']==''){
   if(mysql_num_rows($result) == 0){
     echo "<h2>Your search did not find a movie. Try again!";
   }else{  
-    if(mysql_num_rows($result) > 50){
+    if(mysql_num_rows($result) > 75){
       echo "<h2>Your result returned more than 50 movies!<br><br> Consider refining your search!</h2>";
-      $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m WHERE m.title LIKE '%".$_GET['search']."%' LIMIT 50"; 
+      $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m WHERE m.title LIKE '%".$_GET['search']."%' LIMIT 75"; 
       $result = mysql_query($sql) or die(mysql_error());
     }
 
@@ -109,41 +109,44 @@ if(!$_GET['search']==''){
     echo "<th width='30'>Rating</th>";
     echo "<th width='100'>Like/Dislike</th>";
     echo "</tr>";
-    $counter = 0;
+    $movie_array = array();
+    $counter = 1;
     $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
     while($row2=mysql_fetch_array($result)){
-      $counter = $counter + 1;
-      echo "<tr>";
-      //echo "<td style='text-align: center'>".$counter."</td>";
-      //echo "<td style='text-align: center'>".$row2['title']."</td>";
-      //echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
-      //echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
-      //echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td>";
-      
-      echo "<td style='text-align: center'>".$counter."</td>";
-      echo "<td style='text-align: center'>".$row2['title']."</td>";
-      echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
-      echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
-      //echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td>";
-      $innersql = "select * from user_ratings where username='".$_SESSION['currentUser']."' and movieID=".$row2['ID'].";";
-      $innerResult = mysql_query($innersql);
-      if(mysql_num_rows($innerResult) == 0){  
-        echo "<td style='text-align: center'>";
-        echo "<a href='upvote.php?id=".$row2['ID']."'><img src='../images/Thumbs_Up.png' height='50' width='50' class='thumb'></a><br>";
-        echo "<a href='downvote.php?id=".$row2['ID']."'><img src='../images/Thumbs_Down.png' height='50' width='50' class='thumb'></a></td>";
-      }else{
-        $fetch = mysql_fetch_array($innerResult);
-        if($fetch['rating']==0){
-          echo "<td style='text-align: center'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove dislike</button></a></td>";
-        }else{
-          echo "<td style='text-align: center'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove like</button></a></td>";
+    
+      if($counter <= 50){
+        $find = array_search($row2['title'], $movie_array);
+        if($find == ""){
+          array_push($movie_array, $row2['title']);  
+
+          echo "<tr>";
+          echo "<td style='text-align: center'>".$counter."</td>";
+          echo "<td style='text-align: center'>".$row2['title']."</td>";
+          echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
+          echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
+          //echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td>";
+          $innersql = "select * from user_ratings where username='".$_SESSION['currentUser']."' and movieID=".$row2['ID'].";";
+          $innerResult = mysql_query($innersql);
+          if(mysql_num_rows($innerResult) == 0){  
+            echo "<td style='text-align: center'>";
+            echo "<a href='upvote.php?id=".$row2['ID']."'><img src='../images/Thumbs_Up.png' height='50' width='50' class='thumb'></a><br>";
+            echo "<a href='downvote.php?id=".$row2['ID']."'><img src='../images/Thumbs_Down.png' height='50' width='50' class='thumb'></a></td>";
+          }else{
+            $fetch = mysql_fetch_array($innerResult);
+            if($fetch['rating']==0){
+              echo "<td style='text-align: center'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove dislike</button></a></td>";
+            }else{
+              echo "<td style='text-align: center'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove like</button></a></td>";
+            }
+          }      
+          echo "</tr>"; 
+          $counter = $counter + 1;    
         }
-      }      
-      echo "</tr>";     
+      }
     }
     echo "</table>";
-  }  
+  }    
 }else{
   echo "<h2>Search for a movie then click go!</h2>";
 }

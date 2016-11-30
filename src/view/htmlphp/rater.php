@@ -254,6 +254,7 @@ LIMIT 1
             ON movies.ID=b.ID
             WHERE b.ID IS NULL
             AND g.genre='".$_GET['genre']."' 
+            AND m.year <= ".$_GET['yearTo']."
             ORDER BY RAND() LIMIT 1";    
 
   }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){
@@ -270,7 +271,7 @@ LIMIT 1
               WHERE y.username =  'testusername'
             ) AS b ON movies.ID = b.ID
             WHERE b.ID IS NULL 
-            AND g.genre =  'Action'
+            AND g.genre = '".$_GET['genre']."'
             AND movies.year >= ".$_GET['yearFrom']."
             ORDER BY RAND( ) 
             LIMIT 1";
@@ -289,7 +290,7 @@ LIMIT 1
               WHERE y.username =  'testusername'
             ) AS b ON movies.ID = b.ID
             WHERE b.ID IS NULL 
-            AND g.genre =  'Action'
+            AND g.genre =  '".$_GET['genre']."'
             AND movies.year >= ".$_GET['yearFrom']."
             AND m.year <= ".$_GET['yearTo']."
             ORDER BY RAND( ) 
@@ -330,7 +331,7 @@ LIMIT 1
           LIMIT 1";   
 
   }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){  
-    $sql = "SELECT DISTINCT * FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY RAND() LIMIT 1";
+    //$sql = "SELECT DISTINCT * FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY RAND() LIMIT 1";
 
     $sql = "SELECT a.* 
         FROM movie_usa AS a

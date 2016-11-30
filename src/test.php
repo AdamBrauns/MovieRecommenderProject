@@ -29,8 +29,6 @@ while($row=mysql_fetch_array($result)){
 //movieDirectors(); //working
 //movieGenres(); //working
 //movieTags(); //working
-//tags(); //working
-//user_ratedmovies(); //not working 100% times out 
 
 Function movies(){ //working
 	@ $fp = fopen("Data/movies_comma.txt", "r");
@@ -157,48 +155,6 @@ Function movieTags(){ //working
 		mysql_query($sql);
 	}
 	echo "<p style='color:green;'>Movie tags table populated</p>";
-}
-
-Function tags(){ //working  
-	@ $fp = fopen("Data/tags_comma.csv", "r");
-	if(!$fp){
-        echo "Could not open the file!\n";
-        exit();
-	}
-	while (($data = fgetcsv($fp, 255, ",")) !== FALSE) {
-		$ID = $data[0];
-		$value = $data[1];
-		$sql = "INSERT INTO tags (ID, value) VALUES ('".$ID."', '".$value."')";
-		mysql_query($sql);
-	}
-	echo "<p style='color:green;'>Tags table populated</p>";
-}
-
-//Times out because the file is too large
-Function user_ratedmovies(){ 
-	@ $fp = fopen("Data/user_ratedmovies_comma.csv", "r");
-	if(!$fp){
-        echo "Could not open the file!\n";
-        exit();
-	}
-	while (($data = fgetcsv($fp, 255, ",")) !== FALSE) {
-		$UserID = $data[0];
-		$movieID = $data[1];
-		$rating = $data[2];
-		$date_day = $data[3];
-		$date_month = $data[4];
-		$date_year = $data[5];
-		$date_hour = $data[6];
-		$date_minute = $data[7];
-		$date_second = $data[8];
-
-		$count = $count + 1;
-		
-		$sql = "INSERT INTO user_ratedmovies (UserID, movieID, rating, date_day, date_month, date_year, date_hour, date_minute, date_second) VALUES ('".$UserID."', '".$movieID."', '".$rating."', '".$date_day."', '".$date_month."', '".$date_year."', '".$date_hour."', '".$date_minute."', '".$date_second."')";
-		//$sql = "INSERT INTO test_table2 (movieID, actorID, actorName, ranking) VALUES ('1', '1', '1', '1')";
-		mysql_query($sql);
-	}
-	echo "<p style='color:green;'>User rated movies table populated</p>";
 }
 
 ?>

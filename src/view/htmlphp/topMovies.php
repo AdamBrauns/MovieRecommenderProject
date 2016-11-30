@@ -154,44 +154,77 @@ $sql = "";
 if($_GET['error']==''){
   //echo "<p>THERE WAS AN ERROR</p>";
   if($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
-    $sql = "SELECT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM  movie_usa m ORDER BY rtAudienceScore DESC LIMIT 50";
+    $sql = "SELECT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM  movie_usa m ORDER BY rtAudienceScore DESC LIMIT 75";
   }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
-    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' ORDER BY m.rtAudienceScore DESC LIMIT 50";
+    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' ORDER BY m.rtAudienceScore DESC LIMIT 75";
   }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){
-    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
+    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 75";
   }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){
-    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
+    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." ORDER BY m.rtAudienceScore DESC LIMIT 75";
   }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){
-    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
+    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 75";
   }elseif($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){
-    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m  WHERE m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
+    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m  WHERE m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 75";
   }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){  
-    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
+    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." ORDER BY m.rtAudienceScore DESC LIMIT 75";
   }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){  
-    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 50";
+    $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY m.rtAudienceScore DESC LIMIT 75";
   }    
 
   $result = mysql_query($sql) or die(mysql_error());
-  //$result = mysql_query($sql) or die("<h2>ERROR OCCURED</h2>");
 
   echo "<table>";
   echo "<tr>";
-  echo "<th width='20'>Rank</th>";
-  echo "<th width='150'>Title</th>";
-  echo "<th width='150'>Poster</th>";
-  echo "<th width='20'>Rating</th>";
-  echo "<th width='20'>Like/Dislike</th>";
+  echo "<th width='30'>Rank</th>";
+  echo "<th width='250'>Title</th>";
+  echo "<th width='250'>Poster</th>";
+  echo "<th width='30'>Rating</th>";
+  echo "<th width='30'>Like/Dislike</th>";
   echo "</tr>";
+  $movie_array = array();
   $rank = 1;
   $_SESSION['page'] = $_SERVER['REQUEST_URI'];
   while($row2=mysql_fetch_array($result)){
-    $rank = $rank + 1;
+    if($rank <= 50){
+      $find = array_search($row2['title'], $movie_array);
+      if($find == ""){
+        array_push($movie_array, $row2['title']);
+    
+        echo "<tr>";
+        echo "<td width='30' style='text-align: center'>".$rank."</td>";
+        echo "<td width='250'style='text-align: center'>".$row2['title']."</td>";
+        echo "<td width='250'style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
+        echo "<td width='30'style='text-align: center'>".$row2['rtAudienceScore']."</td>";
+        $innersql = "select * from user_ratings where username='".$_SESSION['currentUser']."' and movieID=".$row2['ID'].";";
+        $innerResult = mysql_query($innersql);
+        if (mysql_num_rows($innerResult) == 0){  
+          echo "<td width='30' style='text-align: center'>";
+          echo "<a href='upvote.php?id=".$row2['ID']."'><img src='../images/Thumbs_Up.png' height='50' width='50' class='thumb'></a><br>";
+          echo "<a href='downvote.php?id=".$row2['ID']."'><img src='../images/Thumbs_Down.png' height='50' width='50' class='thumb'></a></td>";
+        }else{
+          $fetch = mysql_fetch_array($innerResult);
+          if($fetch['rating']==0){
+            echo "<td width='30' style='text-align: center'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove dislike</button></a></td>";
+          }else{
+            echo "<td width='30' style='text-align: center'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove like</button></a></td>";
+          }
+        }  
+        echo "</tr>";     
+        $rank = $rank + 1;
+      }
+    }
+  }
+  echo "</table>";
+
+
+
+
+/*
     echo "<tr>";
     echo "<td style='text-align: center'>".$rank."</td>";
     echo "<td style='text-align: center'>".$row2['title']."</td>";
     echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
     echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
-    //echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td>";
     $innersql = "select * from user_ratings where username='".$_SESSION['currentUser']."' and movieID=".$row2['ID'].";";
     $innerResult = mysql_query($innersql);
     if (mysql_num_rows($innerResult) == 0){  
@@ -209,6 +242,9 @@ if($_GET['error']==''){
     echo "</tr>";     
   }
   echo "</table>";
+*/
+
+
 }else{
   echo "<h2>There was an error with your filter!</h2>";
   echo "<h2>Please edit and try again!<h2>";
