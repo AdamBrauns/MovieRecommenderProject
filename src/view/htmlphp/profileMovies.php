@@ -15,8 +15,9 @@ if($_SESSION['active'] == false){
 <meta charset="utf-8">
 <link rel="stylesheet" href="../css/reset.css" type="text/css" media="all">
 <link rel="stylesheet" href="../css/layout.css" type="text/css" media="all">
-<link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="../css/testcss.css" type="text/css" media="all">
 <!--
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
 <script type="text/javascript" src="../js/jquery-1.4.2.js" ></script>
 <script type="text/javascript" src="../js/cufon-yui.js"></script>
 <script type="text/javascript" src="../js/cufon-replace.js"></script>
@@ -56,8 +57,8 @@ if($_SESSION['active'] == false){
   <section id="content">
     <article class="col1">
       <div class="pad_1">
-        <h2>Your Profile</h2>
-        <p><strong>From your prifile</strong> you can view and edit your liked/disliked movies. You can also view your account and change your password.</p>
+        <h2 style='color: #FFFFFF;'>Your Profile</h2>
+        <p><strong>From your profile</strong> you can view and edit your liked/disliked movies. You can also view your account and change your password.</p>
         <p><a href="profile.php">Account information</a></p>
         <p><a href="profileMovies.php?movies=liked">Liked Movies</a></p>
         <p><a href="profileMovies.php?movies=disliked">Disliked Movies</a></p>
@@ -91,9 +92,9 @@ if($_SESSION['active'] == false){
         }else{
           echo "<table>";
           echo "<tr>";
-          echo "<th width='150'>Title</th>";
-          echo "<th width='150'>Poster</th>";
-          echo "<th width='150'>Rating</th>";
+          echo "<th width='250'>Title</th>";
+          echo "<th width='250'>Poster</th>";
+          echo "<th width='75'>Rating</th>";
           echo "<th width='150'>Delete?</th>";
           echo "</tr>";
 
@@ -105,12 +106,12 @@ if($_SESSION['active'] == false){
 
             $row2 = mysql_fetch_array($result2);
 
-            echo "<tr><td style='text-align: center'>".$row2['title']."</td>";
+            echo "<tr><td valign='middle' width='250' style='text-align: center'>".$row2['title']."</td>";
 
-            echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
+            echo "<td valign='middle' width='250' style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
             //echo "<td><img src='../images/noposter.png' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'>";
-            echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
-            echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td></tr>";
+            echo "<td valign='middle' width='75' style='text-align: center'>".$row2['rtAudienceScore']."</td>";
+            echo "<td valign='middle' width='150' style='text-align: center'><button type='submit' name='clicked[".$movieID."]' href='rater.php'>Delete</button></td></tr>";
             $_SESSION['prevpage'] = "liked";
           }
           echo "</form>";
@@ -136,9 +137,9 @@ if($_SESSION['active'] == false){
         }else{
           echo "<table>";
           echo "<tr>";
-          echo "<th width='150'>Title</th>";
-          echo "<th width='150'>Poster</th>";
-          echo "<th width='150'>Rating</th>";
+          echo "<th width='250'>Title</th>";
+          echo "<th width='250'>Poster</th>";
+          echo "<th width='75'>Rating</th>";
           echo "<th width='150'>Delete?</th>";
           echo "</tr>";
 
@@ -150,12 +151,13 @@ if($_SESSION['active'] == false){
 
             $row2 = mysql_fetch_array($result2);
 
-            echo "<tr><td style='text-align: center'>".$row2['title']."</td>";
+            echo "<tr>";
+            echo "<td valign='middle' width='250' style='text-align: center;'>".$row2['title']."</td>";
 
-            echo "<td style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time' onerror='this.onerror=null;this.src='../images/noposter.png'';>";
+            echo "<td valign='middle' width='250' style='text-align: center;'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time' onerror='this.onerror=null;this.src='../images/noposter.png'';>";
             //echo "<td><img src='../images/noposter.png' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'>";
-            echo "<td style='text-align: center'>".$row2['rtAudienceScore']."</td>";
-            echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td></tr>";
+            echo "<td valign='middle' width='75' style='text-align: center;'>".$row2['rtAudienceScore']."</td>";
+            echo "<td valign='middle' width='150' style='text-align: center;'><button type='submit' name='clicked[".$movieID."]' href='rater.php'>Delete</button></td></tr>";
             $_SESSION['prevpage'] = "disliked";
           }
           echo "</form>";

@@ -219,6 +219,30 @@ a {
 	width: 70%;
 }
 
+.col1 {
+	/*background: transparent;*/
+	background-color: #000000;
+	color: #FFFFFF;
+	position: relative;
+	padding-top: 10px;
+}
+
+.col2 {
+	padding-bottom: 30px;
+}
+
+.col2 input {
+	background: transparent;
+	border: 1px solid black;
+	line-height: 20px;
+	width: 150px;
+	text-align: center;
+}
+
+.col2 a {
+	color: #3c4046;
+}
+
 .pad_1 {
 	padding:0 50px 35px 60px;
 }

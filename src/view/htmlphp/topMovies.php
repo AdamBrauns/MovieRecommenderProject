@@ -175,11 +175,11 @@ if($_GET['error']==''){
 
   echo "<table>";
   echo "<tr>";
-  echo "<th width='30'>Rank</th>";
+  echo "<th width='50'>Rank</th>";
   echo "<th width='250'>Title</th>";
   echo "<th width='250'>Poster</th>";
-  echo "<th width='30'>Rating</th>";
-  echo "<th width='30'>Like/Dislike</th>";
+  echo "<th width='75'>Rating</th>";
+  echo "<th width='75'>Like/Dislike</th>";
   echo "</tr>";
   $movie_array = array();
   $rank = 1;
@@ -191,22 +191,22 @@ if($_GET['error']==''){
         array_push($movie_array, $row2['title']);
     
         echo "<tr>";
-        echo "<td width='30' style='text-align: center'>".$rank."</td>";
-        echo "<td width='250'style='text-align: center'>".$row2['title']."</td>";
-        echo "<td width='250'style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
-        echo "<td width='30'style='text-align: center'>".$row2['rtAudienceScore']."</td>";
+        echo "<td width='30' style='text-align: center' valign='middle'>".$rank."</td>";
+        echo "<td width='250'style='text-align: center' valign='middle'>".$row2['title']."</td>";
+        echo "<td width='250'style='text-align: center' valign='middle'><img src='".$row2['rtPictureURL']."' height='135' width='90' class='moviepic' alt='Poster unavailable at this time'></td>";
+        echo "<td width='75'style='text-align: center' valign='middle'>".$row2['rtAudienceScore']."</td>";
         $innersql = "select * from user_ratings where username='".$_SESSION['currentUser']."' and movieID=".$row2['ID'].";";
         $innerResult = mysql_query($innersql);
         if (mysql_num_rows($innerResult) == 0){  
-          echo "<td width='30' style='text-align: center'>";
+          echo "<td width='75' style='text-align: center' valign='middle'>";
           echo "<a href='upvote.php?id=".$row2['ID']."'><img src='../images/Thumbs_Up.png' height='50' width='50' class='thumb'></a><br>";
           echo "<a href='downvote.php?id=".$row2['ID']."'><img src='../images/Thumbs_Down.png' height='50' width='50' class='thumb'></a></td>";
         }else{
           $fetch = mysql_fetch_array($innerResult);
           if($fetch['rating']==0){
-            echo "<td width='30' style='text-align: center'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove dislike</button></a></td>";
+            echo "<td width='75' style='text-align: center' valign='middle'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove dislike</button></a></td>";
           }else{
-            echo "<td width='30' style='text-align: center'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove like</button></a></td>";
+            echo "<td width='75' style='text-align: center' valign='middle'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove like</button></a></td>";
           }
         }  
         echo "</tr>";     

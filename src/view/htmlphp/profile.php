@@ -15,8 +15,9 @@ if($_SESSION['active'] == false){
 <meta charset="utf-8">
 <link rel="stylesheet" href="../css/reset.css" type="text/css" media="all">
 <link rel="stylesheet" href="../css/layout.css" type="text/css" media="all">
-<link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="../css/testcss.css" type="text/css" media="all">
 <!--
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
 <script type="text/javascript" src="../js/jquery-1.4.2.js" ></script>
 <script type="text/javascript" src="../js/cufon-yui.js"></script>
 <script type="text/javascript" src="../js/cufon-replace.js"></script>
@@ -58,8 +59,8 @@ if($_SESSION['active'] == false){
   <section id="content">
     <article class="col1">
       <div class="pad_1">
-        <h2>Your Profile</h2>
-        <p><strong>From your prifile</strong> you can view and edit your liked/disliked movies. You can also view your account and change your password.</p>
+        <h2 style='color: #FFFFFF;'>Your Profile</h2>
+        <p><strong>From your profile</strong> you can view and edit your liked/disliked movies. You can also view your account and change your password.</p>
         <p><a href="profile.php">Account information</a></p>
         <p><a href="profileMovies.php?movies=liked">Liked Movies</a></p>
         <p><a href="profileMovies.php?movies=disliked">Disliked Movies</a></p>
@@ -87,11 +88,13 @@ if($_SESSION['active'] == false){
               <input type="password" class="input input1" name="oldpass">
             </div>
           </div>
+          <br>
           <div class="wrapper"> New Password:
             <div class="bg">
               <input type="password" class="input input1" name="newpass">
             </div>
           </div>
+          <br>
           <div class="wrapper"> Confirm Password:
             <div class="bg">
               <input type="password" class="input input1" name="c_pass">
