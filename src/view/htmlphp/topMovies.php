@@ -193,7 +193,7 @@ if($_GET['error']==''){
         echo "<tr>";
         echo "<td width='30' style='text-align: center' valign='middle'>".$rank."</td>";
         echo "<td width='250'style='text-align: center' valign='middle'>".$row2['title']."</td>";
-        echo "<td width='250'style='text-align: center' valign='middle'><img src='".$row2['rtPictureURL']."' height='135' width='90' class='moviepic' alt='Poster unavailable at this time'></td>";
+        echo "<td width='250'style='text-align: center' valign='middle'><a href='movieInfo.php?movie=".$row2['ID']."'><img src='".$row2['rtPictureURL']."' height='135' width='90' class='moviepic' alt='Poster unavailable at this time'></a></td>";
         echo "<td width='75'style='text-align: center' valign='middle'>".$row2['rtAudienceScore']."</td>";
         $innersql = "select * from user_ratings where username='".$_SESSION['currentUser']."' and movieID=".$row2['ID'].";";
         $innerResult = mysql_query($innersql);
@@ -204,9 +204,9 @@ if($_GET['error']==''){
         }else{
           $fetch = mysql_fetch_array($innerResult);
           if($fetch['rating']==0){
-            echo "<td width='75' style='text-align: center' valign='middle'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove dislike</button></a></td>";
+            echo "<td width='75' style='text-align: center' valign='middle'><a href='profileScripts.php?rm=".$row2['ID']."'><button class='testbutton'>Remove Dislike</button></a></td>";
           }else{
-            echo "<td width='75' style='text-align: center' valign='middle'><a href='profileScripts.php?rm=".$row2['ID']."'><button>Remove like</button></a></td>";
+            echo "<td width='75' style='text-align: center' valign='middle'><a href='profileScripts.php?rm=".$row2['ID']."'><button class='testbutton'>Remove Like</button></a></td>";
           }
         }  
         echo "</tr>";     

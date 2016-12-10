@@ -367,34 +367,19 @@ LIMIT 1
     echo "<a href='upvote.php'><img src='../images/Thumbs_Up.png' height='200' width='200' class='thumb'></a>";
     echo "<img src='".$movie_imageurl."' height='200' width='150' class='moviepic'>";
     echo "<a href='downvote.php'><img src='../images/Thumbs_Down.png' height='200' width='200' class='thumb'></a>";
+     echo "<br><br><p class='movietitle'><a href='movieInfo.php?movie=".$movie_id."'>More Information</a></p>";
   echo "</div>";
   echo "</div>";  
   echo "<div class='footer1'>";
   echo "<div class='main'>";
-    echo "<footer>";
-      echo "<p style='color:white;''>Movie Information</p>";
-      echo "<div class='footerlink'>";
-        echo "<table style='color:white;''>";
-          echo "<tr>";
-          echo "<th width='100'>Title</th>";
-          echo "<th width='100'>Director</th>"; 
-          echo "<th width='100'>Actors</th>";
-          echo "<th width='100'>Ratings</th>";
-          echo "</tr>";
-          echo "<tr>";
-            echo "<td>".$movie_title."</td>";
-            echo "<td>Steven Speilberg</td>"; 
-            echo "<td>Batman<br> robin</td>";
-            echo "<td>9.8</td>";
+ 
+
 }else{
   echo "<h2>There was an error with your filter!</h2>";
   echo "<h2>Please edit and try again!<h2>";
 }
 ?>            
-          </tr>
-        </table>
-      </div>
-    </footer>
+ 
   </div>
 </div>
 </body>

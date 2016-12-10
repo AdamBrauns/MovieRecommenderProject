@@ -108,10 +108,10 @@ if($_SESSION['active'] == false){
 
             echo "<tr><td valign='middle' width='250' style='text-align: center'>".$row2['title']."</td>";
 
-            echo "<td valign='middle' width='250' style='text-align: center'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></td>";
+            echo "<td valign='middle' width='250' style='text-align: center'><a href='movieInfo.php?movie=".$row2['ID']."'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></a></td>";
             //echo "<td><img src='../images/noposter.png' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'>";
             echo "<td valign='middle' width='75' style='text-align: center'>".$row2['rtAudienceScore']."</td>";
-            echo "<td valign='middle' width='150' style='text-align: center'><button type='submit' name='clicked[".$movieID."]' href='rater.php'>Delete</button></td></tr>";
+            echo "<td valign='middle' width='150' style='text-align: center'><button class='testbutton' type='submit' name='clicked[".$movieID."]' href='rater.php'>Delete</button></td></tr>";
             $_SESSION['prevpage'] = "liked";
           }
           echo "</form>";
@@ -154,10 +154,10 @@ if($_SESSION['active'] == false){
             echo "<tr>";
             echo "<td valign='middle' width='250' style='text-align: center;'>".$row2['title']."</td>";
 
-            echo "<td valign='middle' width='250' style='text-align: center;'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time' onerror='this.onerror=null;this.src='../images/noposter.png'';>";
+            echo "<td valign='middle' width='250' style='text-align: center;'><a href='movieInfo.php?movie=".$row2['ID']."'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></a></td>";
             //echo "<td><img src='../images/noposter.png' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'>";
             echo "<td valign='middle' width='75' style='text-align: center;'>".$row2['rtAudienceScore']."</td>";
-            echo "<td valign='middle' width='150' style='text-align: center;'><button type='submit' name='clicked[".$movieID."]' href='rater.php'>Delete</button></td></tr>";
+            echo "<td valign='middle' width='150' style='text-align: center;'><button class='testbutton' type='submit' name='clicked[".$movieID."]' href='rater.php'>Delete</button></td></tr>";
             $_SESSION['prevpage'] = "disliked";
           }
           echo "</form>";

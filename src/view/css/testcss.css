@@ -219,6 +219,14 @@ a {
 	width: 70%;
 }
 
+.testbutton {
+	background: transparent;
+	border: 1px solid black;
+	line-height: 17px;
+	text-align: center;
+	width: 100px;
+}
+
 .col1 {
 	/*background: transparent;*/
 	background-color: #000000;
