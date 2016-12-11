@@ -365,7 +365,7 @@ LIMIT 1
     $_SESSION['movie_id'] = $movie_id;
     $_SESSION['page'] = $_SERVER['REQUEST_URI'];
     echo "<a href='upvote.php'><img src='../images/Thumbs_Up.png' height='200' width='200' class='thumb'></a>";
-    echo "<img src='".$movie_imageurl."' height='200' width='150' class='moviepic'>";
+    echo "<a href='movieInfo.php?movie=".$movie_id."'><img src='".$movie_imageurl."' height='200' width='150' class='moviepic'></a>";
     echo "<a href='downvote.php'><img src='../images/Thumbs_Down.png' height='200' width='200' class='thumb'></a>";
      echo "<br><br><p class='movietitle'><a href='movieInfo.php?movie=".$movie_id."'>More Information</a></p>";
   echo "</div>";
