@@ -123,18 +123,22 @@ echo "<div style='float: right; width: 30%'>";
 
 echo "<br><h3>Actors:</h3>";
 
-$sql2 = "select * from movies m join movie_actors a on m.ID=a.movieID where ID=".$_GET['movie']; 
+$sql2 = "select * from movies m join movie_actors a on m.ID=a.movieID where ID=".$_GET['movie']." order by a.ranking"; 
 $result2 = mysql_query($sql2) or die(mysql_error());
 
+$limit = 1; 
 $tableSorter = 0;
 echo "<table>";
 while($row2=mysql_fetch_array($result2)){
-  if($tableSorter%2==0){
-    echo "<tr><td width='200' height='30'>".$row2['actorName']."</td>";
-  }else{
-    echo "<td width='200' height='30'>".$row2['actorName']."</td></tr>";
+  if($limit <= 26){
+    if($tableSorter%2==0){
+      echo "<tr><td width='200' height='30'>".$row2['actorName']."</td>";
+    }else{
+      echo "<td width='200' height='30'>".$row2['actorName']."</td></tr>";
+    }
+    $tableSorter += 1;
   }
-  $tableSorter += 1;
+  $limit += 1;
 }  
 echo "</table>";
 echo "</div>";
@@ -158,8 +162,9 @@ echo "<h3>Genre(s):</h3>";
 while($row4=mysql_fetch_array($result4)){
   echo "<p>".$row4['genre']."</p>";
 }  
-
-?>           
+?> 
+<div class='footer1'>
+</div>         
 </div>
 </body>
 </html>
