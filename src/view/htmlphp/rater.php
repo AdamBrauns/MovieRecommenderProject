@@ -1,8 +1,17 @@
 <?php
+/*
+Adam Brauns
+
+Final Project - Movie Recommender 
+
+CompSci366 - Database Management Systems
+
+*/
+?>
+<?php
 
 session_start();
 
-//if(!isset($_SESSION['currentUser'])){
 if($_SESSION['active'] == false){
   header("Location: ../../index.html");
 }
@@ -144,41 +153,6 @@ $password = $_POST['password'];
 
 $sql = "";
 if($_GET['error']==''){
-
-  //SQL STATEMENT TO GET MOVIES NOT YET RATED
-  //select a.* from movies AS a left join (select x.* from movies x left join user_ratings y on x.ID=y.movieid WHERE y.username='Adam Brauns') AS b on a.ID=b.ID WHERE b.ID IS NULL;
-/*
-select a.* 
-from movies AS a
-left join (
-  select x.*
-  from movies x
-  left join user_ratings y
-  on x.ID=y.movieid
-  WHERE y.username='Adam Brauns'
-) AS b
-on a.ID=b.ID
-WHERE b.ID IS NULL
-*/
-
-/* V2
-select a.* 
-from movie_usa AS a
-left join (
-  select x.*
-  from movie_usa x
-  left join user_ratings y
-  on x.ID=y.movieid
-  WHERE y.username='Adam Brauns'
-) AS b
-on a.ID=b.ID
-WHERE b.ID IS NULL
-ORDER BY RAND()
-LIMIT 1
-*/
-
-  //$sql = "SELECT * FROM movies ORDER BY RAND() LIMIT 1"; //Any movie (includes foreign)
-  //$sql = "SELECT ID, title, country FROM movies, movie_countries WHERE movies.ID = movie_countries.movieID AND movie_countries.country =  'USA' ORDER BY RAND( )  LIMIT 1";
   $sql = "SELECT a.* 
           FROM movie_usa AS a
           LEFT JOIN (
@@ -192,9 +166,7 @@ LIMIT 1
           WHERE b.ID IS NULL
           ORDER BY RAND()
           LIMIT 1";
-
   if($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
-    //$sql = "SELECT * FROM  movie_usa m ORDER BY RAND() LIMIT 1";
       $sql = "SELECT a.* 
           FROM movie_usa AS a
           LEFT JOIN (
@@ -209,13 +181,10 @@ LIMIT 1
           ORDER BY RAND()
           LIMIT 1";
   }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']==''){
-    //$sql = "SELECT DISTINCT * FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' ORDER BY RAND() LIMIT 1";
-
     $sql = "SELECT DISTINCT movies.* 
             FROM movie_usa AS movies
             JOIN movie_genres g 
             ON movies.ID=g.movieid     
-
             LEFT JOIN (
               SELECT x.*
               FROM movie_usa x
@@ -227,15 +196,11 @@ LIMIT 1
             WHERE b.ID IS NULL
             AND g.genre='".$_GET['genre']."' 
             ORDER BY RAND() LIMIT 1";
-
   }elseif($_GET['genre']!=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){
-    //$sql = "SELECT DISTINCT * FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year <= ".$_GET['yearTo']." ORDER BY RAND() LIMIT 1";
-
     $sql = "SELECT DISTINCT movies.* 
             FROM movie_usa AS movies
             JOIN movie_genres g 
             ON movies.ID=g.movieid     
-
             LEFT JOIN (
               SELECT x.*
               FROM movie_usa x
@@ -248,10 +213,7 @@ LIMIT 1
             AND g.genre='".$_GET['genre']."' 
             AND m.year <= ".$_GET['yearTo']."
             ORDER BY RAND() LIMIT 1";    
-
-  }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){
-    //$sql = "SELECT DISTINCT * FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." ORDER BY RAND() LIMIT 1";
-  
+  }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){  
     $sql = "SELECT DISTINCT movies . * 
             FROM movie_usa AS movies
             JOIN movie_genres g ON movies.ID = g.movieid
@@ -267,15 +229,11 @@ LIMIT 1
             AND movies.year >= ".$_GET['yearFrom']."
             ORDER BY RAND( ) 
             LIMIT 1";
-
   }elseif($_GET['genre']!=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){
-    //$sql = "SELECT DISTINCT * FROM movie_usa m JOIN movie_genres g ON m.ID=g.movieid WHERE g.genre='".$_GET['genre']."' AND m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY RAND() LIMIT 1";
-  
     $sql = "SELECT DISTINCT movies . * 
             FROM movie_usa AS movies
             JOIN movie_genres g ON movies.ID = g.movieid
             LEFT JOIN (
-
               SELECT x . * 
               FROM movie_usa x
               LEFT JOIN user_ratings y ON x.ID = y.movieid
@@ -287,9 +245,7 @@ LIMIT 1
             AND m.year <= ".$_GET['yearTo']."
             ORDER BY RAND( ) 
             LIMIT 1";
-
   }elseif($_GET['genre']=='' && $_GET['yearFrom']=='' && $_GET['yearTo']!==''){
-    //$sql = "SELECT DISTINCT * FROM movie_usa m  WHERE m.year <= ".$_GET['yearTo']." ORDER BY RAND() LIMIT 1";
       $sql = "SELECT a.* 
           FROM movie_usa AS a
           LEFT JOIN (
@@ -304,9 +260,7 @@ LIMIT 1
           AND a.year <= ".$_GET['yearTo']."
           ORDER BY RAND()
           LIMIT 1";  
-
   }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']==''){  
-    //$sql = "SELECT DISTINCT * FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." ORDER BY RAND() LIMIT 1";
       $sql = "SELECT a.* 
           FROM movie_usa AS a
           LEFT JOIN (
@@ -321,10 +275,7 @@ LIMIT 1
           AND a.year >= ".$_GET['yearFrom']."
           ORDER BY RAND()
           LIMIT 1";   
-
   }elseif($_GET['genre']=='' && $_GET['yearFrom']!=='' && $_GET['yearTo']!==''){  
-    //$sql = "SELECT DISTINCT * FROM movie_usa m  WHERE m.year >= ".$_GET['yearFrom']." AND m.year <= ".$_GET['yearTo']." ORDER BY RAND() LIMIT 1";
-
     $sql = "SELECT a.* 
         FROM movie_usa AS a
         LEFT JOIN (
@@ -340,7 +291,6 @@ LIMIT 1
         AND a.year <= ".$_GET['yearTo']."
         ORDER BY RAND()
         LIMIT 1";     
-
   } 
 
   $result = mysql_query($sql);

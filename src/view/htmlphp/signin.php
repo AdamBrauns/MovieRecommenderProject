@@ -1,4 +1,14 @@
 <?php
+/*
+Adam Brauns
+
+Final Project - Movie Recommender 
+
+CompSci366 - Database Management Systems
+
+*/
+?>
+<?php
 
 session_start();
 
@@ -21,12 +31,9 @@ $row=mysql_fetch_array($result);
 
 $returnedpassword  = $row['password'];
 
-//echo "<p>result: ".$returnedpassword."</p>";
-
 if(strlen($password) == 0){
 	displayHTML();
 }elseif ($password == $returnedpassword){
-	//echo "<p>You would be logged in</p>";
 	$_SESSION['currentUser'] = $username;
 	$_SESSION['active'] = true;
 	header("Location: rater.php");
@@ -98,7 +105,6 @@ Function displayHTML(){
 </script>
 
 </html>
-
 
 <?php
 }

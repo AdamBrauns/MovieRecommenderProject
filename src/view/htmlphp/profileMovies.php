@@ -1,8 +1,17 @@
 <?php
+/*
+Adam Brauns
+
+Final Project - Movie Recommender 
+
+CompSci366 - Database Management Systems
+
+*/
+?>
+<?php
 
 session_start();
 
-//if(!isset($_SESSION['currentUser'])){
 if($_SESSION['active'] == false){
   header("Location: ../../index.html");
 }
@@ -74,7 +83,6 @@ if($_SESSION['active'] == false){
 
         $mydb=mysql_select_db("a4803033_class");
 
-        //$sql = "SELECT movieID FROM user_upvotes WHERE username='".$currentUser."'";
         $sql = "SELECT movieID FROM user_ratings WHERE username='".$currentUser."' AND rating=1";
 
         $result = mysql_query($sql);
@@ -101,7 +109,6 @@ if($_SESSION['active'] == false){
             echo "<tr><td valign='middle' width='250' style='text-align: center'>".$row2['title']."</td>";
 
             echo "<td valign='middle' width='250' style='text-align: center'><a href='movieInfo.php?movie=".$row2['ID']."'><img src='".$row2['rtPictureURL']."' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'></a></td>";
-            //echo "<td><img src='../images/noposter.png' height='150' width='100' class='moviepic' alt='Poster unavailable at this time'>";
             echo "<td valign='middle' width='75' style='text-align: center'>".$row2['rtAudienceScore']."</td>";
             echo "<td valign='middle' width='150' style='text-align: center'><button class='testbutton' type='submit' name='clicked[".$movieID."]' href='rater.php'>Delete</button></td></tr>";
             $_SESSION['prevpage'] = "liked";
@@ -119,7 +126,6 @@ if($_SESSION['active'] == false){
 
         $mydb=mysql_select_db("a4803033_class");
 
-        //$sql = "SELECT movieID FROM user_downvotes WHERE username='".$currentUser."'";
         $sql = "SELECT movieID FROM user_ratings WHERE username='".$currentUser."' AND rating=0";
 
         $result = mysql_query($sql);

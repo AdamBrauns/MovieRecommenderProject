@@ -1,3 +1,13 @@
+<?php
+/*
+Adam Brauns
+
+Final Project - Movie Recommender 
+
+CompSci366 - Database Management Systems
+
+*/
+?>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,8 +1,17 @@
 <?php
+/*
+Adam Brauns
+
+Final Project - Movie Recommender 
+
+CompSci366 - Database Management Systems
+
+*/
+?>
+<?php
 
 session_start();
 
-//if(!isset($_SESSION['currentUser'])){
 if($_SESSION['active'] == false){
   header("Location: ../../index.html");
 }
@@ -54,12 +63,10 @@ if($_SESSION['active'] == false){
       <button type='submit'>Go!</button>  
     <h2>Current Filter's In Use:</h2>
     <?php
-
       if(!$_GET['search']==''){
         echo "<h2>You searched for:</h2>";
         echo "<p>".$_GET['search']."</p>";
       }
-
     ?>
   </form>
   </div>    
@@ -79,11 +86,9 @@ $password = $_POST['password'];
 
 $sql = "";
 if(!$_GET['search']==''){
-  //echo "<p>THERE WAS AN ERROR</p>";
   $sql = "SELECT DISTINCT m.ID, m.title, m.rtPictureURL, m.rtAudienceScore FROM movie_usa m WHERE m.title LIKE '%".$_GET['search']."%'";  
 
   $result = mysql_query($sql) or die(mysql_error());
-  //$result = mysql_query($sql) or die("<h2>ERROR OCCURED</h2>");
   if(mysql_num_rows($result) == 0){
     echo "<h2>Your search did not find a movie. Try again!";
   }else{  
@@ -117,7 +122,6 @@ if(!$_GET['search']==''){
           echo "<td width='250' style='text-align: center' valign='middle'>".$row2['title']."</td>";
           echo "<td width='250' style='text-align: center' valign='middle'><a href='movieInfo.php?movie=".$row2['ID']."'><img src='".$row2['rtPictureURL']."' height='135' width='90' class='moviepic' alt='Poster unavailable at this time'></a></td>";
           echo "<td width='75' style='text-align: center' valign='middle'>".$row2['rtAudienceScore']."</td>";
-          //echo "<td style='text-align: center'><input type='submit' name='clicked[".$movieID."]' value='delete' href='rater.php'></td>";
           $innersql = "select * from user_ratings where username='".$_SESSION['currentUser']."' and movieID=".$row2['ID'].";";
           $innerResult = mysql_query($innersql);
           if(mysql_num_rows($innerResult) == 0){  
@@ -143,12 +147,6 @@ if(!$_GET['search']==''){
   echo "<h2>Search for a movie then click go!</h2>";
 }
 
-  //echo "</div>";
-//echo "</div>";  
-//echo "<div class='footer1'>";
-  //echo "<div class='main'>";
-    //echo "<footer>";
-      //echo "<div class='footerlink'>";
 ?>
 </div>
 </body>

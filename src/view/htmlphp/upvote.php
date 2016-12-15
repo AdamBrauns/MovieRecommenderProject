@@ -1,4 +1,14 @@
 <?php
+/*
+Adam Brauns
+
+Final Project - Movie Recommender 
+
+CompSci366 - Database Management Systems
+
+*/
+?>
+<?php
 
 session_start();
 
@@ -11,8 +21,6 @@ if(isset($_GET['id'])){
 $currentUser = $_SESSION['currentUser'];
 $filters = $_SESSION['page'];
 
-//echo "movie id = ".$movie_id;
-
 $servername = "mysql4.000webhost.com";
 $username = "a4803033_class";
 $password = "Compsci366";
@@ -21,7 +29,6 @@ $db=mysql_connect  ($servername, $username,  $password) or die ('I cannot connec
 
 $mydb=mysql_select_db("a4803033_class");
 
-//$sql = "INSERT INTO user_upvotes (username, movieID)	VALUES ('".$currentUser."', '".$movie_id."')";
 $sql = "INSERT INTO user_ratings (username, movieID, rating)	VALUES ('".$currentUser."', '".$movie_id."', '1')";
 mysql_query($sql);
 

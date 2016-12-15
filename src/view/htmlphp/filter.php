@@ -1,12 +1,20 @@
 <?php
+/*
+Adam Brauns
+
+Final Project - Movie Recommender 
+
+CompSci366 - Database Management Systems
+
+*/
+?>
+<?php
 
 $goTo = "";
 
 if($_POST['filter']=='rater'){
-	//echo "you came from the rater page";
 	$goTo = "rater";
 }elseif($_POST['filter']=='topMovies'){
-	//echo "you came from the top movies page";
 	$goTo = "topMovies";
 }
 
@@ -18,31 +26,25 @@ if($_GET['search']==""){
 	$errors = 1;	
 	if($yearFrom !== "" && $yearFrom < 1903){
 		$errors = $errors + 1;
-		//echo "hit1";
 	}
 	if($yearTo !== "" && $yearTo > 2011){
 		$errors = $errors + 1;
-		//echo "hit2";
 	}
 	if($yearTo !=="" && $yearFrom > $yearTo){
 		$errors = $errors + 1;
-		//echo "hit3";
 	}
 
 	if(!is_numeric($yearFrom) && $yearFrom !==""){
 		$errors = $errors + 1;
-		//echo "hit4";
 	}
 
 	if(!is_numeric($yearTo) && $yearTo !==""){
 		$errors = $errors + 1;
-		//echo "hit5";
 	}
 
 	if($errors !== 1){
 		header("Location: ".$goTo.".php?error=true&genre=".$genre."&yearFrom=".$yearFrom."&yearTo=".$yearTo);
 	}elseif($genre == "" && $yearFrom == "" && $yearTo == ""){
-		//hits here when all are on default
 		header("location: ".$goTo.".php");
 	}elseif($genre ==! "" && $yearFrom == "" && $yearTo == ""){
 		header("location: ".$goTo.".php?genre=".$genre);
@@ -52,7 +54,6 @@ if($_GET['search']==""){
 		echo "You broke it...";
 	}
 }else{
-	//echo "you made it, congrats!";
 	header("Location: search.php?search=".$_POST['search']);
 }
 

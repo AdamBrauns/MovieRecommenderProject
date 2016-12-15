@@ -1,3 +1,13 @@
+<?php
+/*
+Adam Brauns
+
+Final Project - Movie Recommender 
+
+CompSci366 - Database Management Systems
+
+*/
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,12 +74,6 @@
       						echo "<label>Congrats! Your account was created successfully!</label><br>";
       						echo "<label><a href='../../index.html'>Sign in!</a></label>";
   						}else{
-  							//echo "<div class='box-header'>";
-							//echo "<h2>Error Creating Account!</h2>";
-							//echo "</div>";
-      						//echo "<label><b>Make sure:</b></label><br>";
-      						//echo "<label>Username is over 5 characters</label><br>";
-      						//echo "<label>Passwords match</label><br>";
       						?>
   							<div class="box-header">
 							<h2>Create Account</h2>
@@ -94,12 +98,6 @@
 							<?php
   						}	
   					}
-
-					//echo "<label> username: ".$username."</label><br>";
-					//echo "<label> usernameLen: ".$usernameLen."</lable><br>";
-					//echo "<label> password: ".$password."</label><br>";
-					//echo "<label> c password: ".$c_password."</label><br>";
-					//header("Location: ../../index.html");
 				?>
 			</form>
 		</div>

@@ -1,8 +1,17 @@
 <?php
+/*
+Adam Brauns
+
+Final Project - Movie Recommender 
+
+CompSci366 - Database Management Systems
+
+*/
+?>
+<?php
 
 session_start();
 
-//if(!isset($_SESSION['currentUser'])){
 if($_SESSION['active'] == false){
   header("Location: ../../index.html");
 }
@@ -83,9 +92,6 @@ if($_GET['error']==''){
     $_SESSION['movie_id'] = $movie_id;
     $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
-    //echo "<a href='upvote.php'><img src='../images/Thumbs_Up.png' height='100' width='100' class='thumb'></a>";
-    //echo "<a href='downvote.php'><img src='../images/Thumbs_Down.png' height='100' width='100' class='thumb'></a>";
-    
     $innersql = "select * from user_ratings where username='".$_SESSION['currentUser']."' and movieID=".$row['ID'].";";
     $innerResult = mysql_query($innersql);
     if (mysql_num_rows($innerResult) == 0){  
@@ -99,8 +105,6 @@ if($_GET['error']==''){
         echo "<p width='75' style='text-align: center' valign='middle'><a href='profileScripts.php?rm=".$row['ID']."'><button class='testbutton'>Remove Like</button></a></p>";
       }
     }
-
-
 
   echo "</div>";
   echo "</div>";  

@@ -1,8 +1,17 @@
 <?php
+/*
+Adam Brauns
+
+Final Project - Movie Recommender 
+
+CompSci366 - Database Management Systems
+
+*/
+?>
+<?php
 
 session_start();
 
-//if(!isset($_SESSION['currentUser'])){
 if($_SESSION['active'] == false){
   header("Location: ../../index.html");
 }
